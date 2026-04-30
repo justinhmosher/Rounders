@@ -1,0 +1,460 @@
+<!-- Rounders Landing Page | Tailwind CDN | Django-template ready -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rounders | Tax Season Scheduling Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rounders: {
+              red: "#DC2626",
+              dark: "#991B1B",
+              soft: "#FEF2F2"
+            }
+          },
+          boxShadow: {
+            premium: "0 24px 80px rgba(220, 38, 38, 0.16)"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-white text-slate-900 antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-red-100">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-xl bg-red-600 text-white flex items-center justify-center font-black shadow-lg">
+          R
+        </div>
+        <span class="text-2xl font-black tracking-tight">Rounders</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+        <a href="#features" class="hover:text-red-600 transition">Features</a>
+        <a href="#how" class="hover:text-red-600 transition">How It Works</a>
+        <a href="#pricing" class="hover:text-red-600 transition">Pricing</a>
+        <a href="#contact" class="hover:text-red-600 transition">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="/login/" class="text-sm font-bold text-slate-700 hover:text-red-600 transition">
+          Login
+        </a>
+        <a href="#demo" class="hidden sm:inline-flex bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-red-200 transition hover:-translate-y-0.5">
+          Book a Demo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-red-50 via-white to-white"></div>
+    <div class="absolute -top-24 -right-24 h-96 w-96 bg-red-100 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-24 lg:py-32 grid lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-white border border-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-bold shadow-sm mb-7">
+          Built for CPA firm capacity planning
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-[0.95]">
+          Run tax season with confidence.
+        </h1>
+
+        <p class="mt-7 text-xl text-slate-600 leading-8 max-w-2xl">
+          Rounders helps CPA firms forecast workload, assign staff intelligently, and catch bottlenecks before they become fire drills.
+        </p>
+
+        <div class="mt-9 flex flex-col sm:flex-row gap-4">
+          <a href="#demo" class="bg-red-600 hover:bg-red-700 text-white px-7 py-4 rounded-2xl font-black shadow-xl shadow-red-200 transition hover:-translate-y-1 text-center">
+            Book a Demo
+          </a>
+
+          <a href="/login/" class="bg-white hover:bg-red-50 text-red-700 border border-red-200 px-7 py-4 rounded-2xl font-black transition hover:-translate-y-1 text-center">
+            Login
+          </a>
+
+          <!-- Optional Django auth logic:
+          {% if user.is_authenticated %}
+            <a href="/dashboard/">Get Started</a>
+          {% else %}
+            <a href="/login/">Get Started</a>
+          {% endif %}
+          -->
+        </div>
+
+        <div class="mt-10 grid grid-cols-3 gap-6 max-w-xl">
+          <div>
+            <p class="text-3xl font-black text-red-600">42%</p>
+            <p class="text-sm text-slate-500 font-semibold">Less manual scheduling</p>
+          </div>
+          <div>
+            <p class="text-3xl font-black text-red-600">18%</p>
+            <p class="text-sm text-slate-500 font-semibold">Better utilization</p>
+          </div>
+          <div>
+            <p class="text-3xl font-black text-red-600">24/7</p>
+            <p class="text-sm text-slate-500 font-semibold">Manager visibility</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO DASHBOARD -->
+      <div class="bg-white rounded-[2rem] shadow-premium border border-red-100 p-5 hover:-translate-y-1 transition duration-500">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <p class="text-sm font-bold text-slate-400 uppercase">Tax Season Command Center</p>
+            <h3 class="text-xl font-black">Firm Capacity Overview</h3>
+          </div>
+          <div class="bg-red-50 text-red-700 px-3 py-1 rounded-full text-xs font-black">LIVE</div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mt-5">
+          <div class="bg-red-50 rounded-2xl p-4">
+            <p class="text-xs font-bold text-slate-500">Returns Due</p>
+            <p class="text-3xl font-black text-red-600">184</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-4">
+            <p class="text-xs font-bold text-slate-500">Est. Hours</p>
+            <p class="text-3xl font-black">742</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-4">
+            <p class="text-xs font-bold text-slate-500">Overloaded</p>
+            <p class="text-3xl font-black text-red-600">6</p>
+          </div>
+        </div>
+
+        <div class="mt-5 space-y-3">
+          <div class="flex items-center justify-between bg-white border border-slate-100 rounded-2xl p-4">
+            <div>
+              <p class="font-black">1040 - Henderson Family</p>
+              <p class="text-sm text-slate-500">14.5 est. hrs · Reviewer: Maria L.</p>
+            </div>
+            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-black">At Risk</span>
+          </div>
+
+          <div class="flex items-center justify-between bg-white border border-slate-100 rounded-2xl p-4">
+            <div>
+              <p class="font-black">1120S - Nolan Dental Group</p>
+              <p class="text-sm text-slate-500">22 est. hrs · Preparer: James K.</p>
+            </div>
+            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-black">Overload</span>
+          </div>
+
+          <div class="flex items-center justify-between bg-white border border-slate-100 rounded-2xl p-4">
+            <div>
+              <p class="font-black">1065 - Westlake Partners</p>
+              <p class="text-sm text-slate-500">31 est. hrs · Awaiting K-1s</p>
+            </div>
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-black">On Track</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="text-red-600 font-black uppercase tracking-wide">The problem</p>
+        <h2 class="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+          Tax season breaks when managers lose visibility.
+        </h2>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-5 gap-5">
+        <div class="p-6 rounded-3xl border border-red-100 bg-red-50 hover:shadow-xl transition">
+          <h3 class="font-black text-lg">Staff overload</h3>
+          <p class="mt-3 text-slate-600">Too much work quietly piles onto your best people.</p>
+        </div>
+        <div class="p-6 rounded-3xl border border-red-100 bg-white hover:shadow-xl transition">
+          <h3 class="font-black text-lg">Last-minute surprises</h3>
+          <p class="mt-3 text-slate-600">Missing docs and complexity show up too late.</p>
+        </div>
+        <div class="p-6 rounded-3xl border border-red-100 bg-red-50 hover:shadow-xl transition">
+          <h3 class="font-black text-lg">Manual scheduling</h3>
+          <p class="mt-3 text-slate-600">Spreadsheets become stale the moment work changes.</p>
+        </div>
+        <div class="p-6 rounded-3xl border border-red-100 bg-white hover:shadow-xl transition">
+          <h3 class="font-black text-lg">Unclear complexity</h3>
+          <p class="mt-3 text-slate-600">A return count alone never tells the whole story.</p>
+        </div>
+        <div class="p-6 rounded-3xl border border-red-100 bg-red-50 hover:shadow-xl transition">
+          <h3 class="font-black text-lg">Falling behind</h3>
+          <p class="mt-3 text-slate-600">Managers find issues after they become emergencies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="py-24 bg-slate-950 text-white">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <p class="text-red-400 font-black uppercase tracking-wide">The solution</p>
+        <h2 class="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+          A smarter scheduling engine for modern CPA firms.
+        </h2>
+        <p class="mt-6 text-lg text-slate-300 leading-8">
+          Rounders combines historical time data, client document status, prior-year return complexity, and internal capacity rules to help firms forecast work before the crunch hits.
+        </p>
+      </div>
+
+      <div class="bg-white/5 border border-white/10 rounded-[2rem] p-6">
+        <div class="grid gap-4">
+          <div class="bg-white/10 rounded-2xl p-5">
+            <p class="font-black">Historical Time Data</p>
+            <p class="text-slate-300 text-sm mt-1">Compare prior-year actuals, preparer time, and reviewer time.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-5">
+            <p class="font-black">Document Status</p>
+            <p class="text-slate-300 text-sm mt-1">Use SafeSend, SurePrep, and client intake signals.</p>
+          </div>
+          <div class="bg-red-600 rounded-2xl p-5">
+            <p class="font-black">Capacity Rules</p>
+            <p class="text-red-50 text-sm mt-1">Assign work by availability, role, skill, deadline, and complexity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto">
+        <p class="text-red-600 font-black uppercase tracking-wide">Features</p>
+        <h2 class="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+          Everything managers need before work gets stuck.
+        </h2>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-8 rounded-3xl border border-red-100 hover:shadow-xl hover:-translate-y-1 transition">
+          <h3 class="text-xl font-black">Workload forecasting</h3>
+          <p class="mt-3 text-slate-600">Estimate hours before the return enters crunch mode.</p>
+        </div>
+        <div class="p-8 rounded-3xl border border-red-100 hover:shadow-xl hover:-translate-y-1 transition">
+          <h3 class="text-xl font-black">Staff capacity planning</h3>
+          <p class="mt-3 text-slate-600">See who has room, who is maxed out, and who needs support.</p>
+        </div>
+        <div class="p-8 rounded-3xl border border-red-100 hover:shadow-xl hover:-translate-y-1 transition">
+          <h3 class="text-xl font-black">Return complexity scoring</h3>
+          <p class="mt-3 text-slate-600">Score returns using prior-year forms, K-1s, 1099s, entities, and reviewer history.</p>
+        </div>
+        <div class="p-8 rounded-3xl border border-red-100 hover:shadow-xl hover:-translate-y-1 transition">
+          <h3 class="text-xl font-black">Bottleneck detection</h3>
+          <p class="mt-3 text-slate-600">Flag stuck returns, late document collection, and overloaded reviewers.</p>
+        </div>
+        <div class="p-8 rounded-3xl border border-red-100 hover:shadow-xl hover:-translate-y-1 transition">
+          <h3 class="text-xl font-black">Manager dashboard</h3>
+          <p class="mt-3 text-slate-600">One view for deadlines, assignments, status, and capacity.</p>
+        </div>
+        <div class="p-8 rounded-3xl border border-red-100 hover:shadow-xl hover:-translate-y-1 transition">
+          <h3 class="text-xl font-black">Integration-ready sync</h3>
+          <p class="mt-3 text-slate-600">Designed around CCH, SafeSend, SurePrep, and firm workflow data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="py-24 bg-red-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="text-red-600 font-black uppercase tracking-wide">How it works</p>
+        <h2 class="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+          From scattered data to clear scheduling decisions.
+        </h2>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-4 gap-6">
+        <div class="bg-white rounded-3xl p-7 shadow-sm">
+          <div class="h-11 w-11 bg-red-600 text-white rounded-xl flex items-center justify-center font-black">1</div>
+          <h3 class="mt-5 font-black text-lg">Connect firm data</h3>
+          <p class="mt-3 text-slate-600">Pull signals from CCH, SafeSend, SurePrep, and internal firm data.</p>
+        </div>
+        <div class="bg-white rounded-3xl p-7 shadow-sm">
+          <div class="h-11 w-11 bg-red-600 text-white rounded-xl flex items-center justify-center font-black">2</div>
+          <h3 class="mt-5 font-black text-lg">Estimate workload</h3>
+          <p class="mt-3 text-slate-600">Forecast hours based on prior-year return data and complexity.</p>
+        </div>
+        <div class="bg-white rounded-3xl p-7 shadow-sm">
+          <div class="h-11 w-11 bg-red-600 text-white rounded-xl flex items-center justify-center font-black">3</div>
+          <h3 class="mt-5 font-black text-lg">Assign intelligently</h3>
+          <p class="mt-3 text-slate-600">Match work by capacity, skill, role, and deadline pressure.</p>
+        </div>
+        <div class="bg-white rounded-3xl p-7 shadow-sm">
+          <div class="h-11 w-11 bg-red-600 text-white rounded-xl flex items-center justify-center font-black">4</div>
+          <h3 class="mt-5 font-black text-lg">Track in real time</h3>
+          <p class="mt-3 text-slate-600">Monitor bottlenecks, overloaded staff, and late returns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD MOCKUP -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+        <div>
+          <p class="text-red-600 font-black uppercase tracking-wide">Dashboard preview</p>
+          <h2 class="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+            See every return, hour, deadline, and risk.
+          </h2>
+        </div>
+        <div class="bg-red-600 text-white px-5 py-3 rounded-2xl font-black shadow-lg">
+          April 15 Deadline Window
+        </div>
+      </div>
+
+      <div class="mt-12 overflow-hidden rounded-[2rem] border border-red-100 shadow-premium">
+        <div class="bg-slate-950 text-white p-5 flex items-center justify-between">
+          <div>
+            <p class="text-sm text-slate-400 font-bold">Rounders Manager Dashboard</p>
+            <h3 class="text-2xl font-black">Client Return Queue</h3>
+          </div>
+          <div class="hidden md:flex gap-3">
+            <span class="bg-white/10 px-4 py-2 rounded-xl text-sm font-bold">184 Active</span>
+            <span class="bg-red-600 px-4 py-2 rounded-xl text-sm font-bold">12 At Risk</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto bg-white">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-red-50 text-slate-600">
+              <tr>
+                <th class="p-5 font-black">Client</th>
+                <th class="p-5 font-black">Return</th>
+                <th class="p-5 font-black">Est. Hours</th>
+                <th class="p-5 font-black">Preparer</th>
+                <th class="p-5 font-black">Reviewer</th>
+                <th class="p-5 font-black">Status</th>
+                <th class="p-5 font-black">Deadline</th>
+                <th class="p-5 font-black">Warning</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="hover:bg-red-50/50 transition">
+                <td class="p-5 font-bold">Nolan Dental Group</td>
+                <td class="p-5">1120S</td>
+                <td class="p-5">22.0</td>
+                <td class="p-5">James K.</td>
+                <td class="p-5">Maria L.</td>
+                <td class="p-5"><span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-black text-xs">In Review</span></td>
+                <td class="p-5">Mar 15</td>
+                <td class="p-5 text-red-600 font-black">Reviewer overloaded</td>
+              </tr>
+              <tr class="hover:bg-red-50/50 transition">
+                <td class="p-5 font-bold">Henderson Family</td>
+                <td class="p-5">1040</td>
+                <td class="p-5">14.5</td>
+                <td class="p-5">Ava R.</td>
+                <td class="p-5">Chris D.</td>
+                <td class="p-5"><span class="bg-red-100 text-red-700 px-3 py-1 rounded-full font-black text-xs">At Risk</span></td>
+                <td class="p-5">Apr 15</td>
+                <td class="p-5 text-red-600 font-black">Missing K-1s</td>
+              </tr>
+              <tr class="hover:bg-red-50/50 transition">
+                <td class="p-5 font-bold">Westlake Partners LP</td>
+                <td class="p-5">1065</td>
+                <td class="p-5">31.0</td>
+                <td class="p-5">Ethan B.</td>
+                <td class="p-5">Maria L.</td>
+                <td class="p-5"><span class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-black text-xs">On Track</span></td>
+                <td class="p-5">Mar 15</td>
+                <td class="p-5 text-slate-400 font-bold">None</td>
+              </tr>
+              <tr class="hover:bg-red-50/50 transition">
+                <td class="p-5 font-bold">Crown Retail LLC</td>
+                <td class="p-5">1065</td>
+                <td class="p-5">27.5</td>
+                <td class="p-5">Sophia M.</td>
+                <td class="p-5">Chris D.</td>
+                <td class="p-5"><span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-black text-xs">Not Started</span></td>
+                <td class="p-5">Apr 15</td>
+                <td class="p-5 text-red-600 font-black">Late start risk</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="py-24 bg-slate-950 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto">
+        <p class="text-red-400 font-black uppercase tracking-wide">Benefits</p>
+        <h2 class="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+          Replace tax season chaos with operational control.
+        </h2>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-5 gap-5">
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/10">Fewer missed deadlines</div>
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/10">Better staff utilization</div>
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/10">More predictable tax season</div>
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/10">Clear manager visibility</div>
+        <div class="bg-white/10 rounded-3xl p-6 border border-white/10">Less spreadsheet tracking</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING DUMMY -->
+  <section id="pricing" class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <p class="text-red-600 font-black uppercase tracking-wide">Pricing</p>
+      <h2 class="mt-3 text-4xl font-black tracking-tight">Built around your firm size.</h2>
+      <p class="mt-5 text-slate-600 text-lg">Custom implementation and pricing based on users, integrations, and workflow complexity.</p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="demo" class="py-24 bg-red-600 text-white">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight">
+        Stop managing tax season from spreadsheets.
+      </h2>
+      <p class="mt-6 text-xl text-red-50">
+        Give partners, managers, preparers, and reviewers one clear source of truth.
+      </p>
+
+      <div class="mt-9 flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#contact" class="bg-white text-red-700 hover:bg-red-50 px-8 py-4 rounded-2xl font-black shadow-xl transition hover:-translate-y-1">
+          Schedule a Demo
+        </a>
+        <a href="/login/" class="bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-2xl font-black border border-red-400 transition hover:-translate-y-1">
+          Login
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT DUMMY -->
+  <footer id="contact" class="bg-white border-t border-red-100 py-10">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-6">
+      <div>
+        <p class="text-2xl font-black">Rounders</p>
+        <p class="text-slate-500 mt-2">Scheduling and workload intelligence for CPA firms.</p>
+      </div>
+      <div class="text-slate-500 font-semibold">
+        Contact: sales@rounders.com
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
