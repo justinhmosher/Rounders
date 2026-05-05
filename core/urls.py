@@ -9,5 +9,7 @@ app_name = 'core'
 
 urlpatterns = [
 	path('',views.home,name="home"),
-	path('signin/',views.signin,name="signin")
+	path('signin/',views.signin,name="signin"),
+	path('accept-invite/<str:token>/',views.owner_signup,name="owner_signup"),
+	path('staff/',views.staff,name="staff")
 ]

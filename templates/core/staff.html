@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rounders | Staff Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+  <!-- Top Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 bg-red-600 rounded-xl flex items-center justify-center text-white font-black">
+          R
+        </div>
+        <div>
+          <h1 class="text-xl font-black">Rounders</h1>
+          <p class="text-xs text-slate-500">CPA Staff Scheduling Dashboard</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="text-sm text-slate-500 hidden sm:block">Tax Season 2026</div>
+        <button class="px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold">
+          Staff Profile
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8">
+
+    <!-- Summary Cards -->
+    <section class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <p class="text-sm text-slate-500">Upcoming Tasks</p>
+        <h2 class="text-3xl font-black mt-2">18</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <p class="text-sm text-slate-500">Due This Week</p>
+        <h2 class="text-3xl font-black mt-2">6</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <p class="text-sm text-slate-500">Expected Hours</p>
+        <h2 class="text-3xl font-black mt-2">42.5</h2>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <p class="text-sm text-slate-500">Blocked Returns</p>
+        <h2 class="text-3xl font-black mt-2 text-red-600">3</h2>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <section class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+
+      <div class="border-b border-slate-200 px-6 pt-5">
+        <nav class="flex gap-2">
+          <button onclick="showTab('inbox')" id="tab-inbox"
+            class="tab-btn px-5 py-3 rounded-t-xl font-semibold bg-red-600 text-white">
+            Inbox
+          </button>
+
+          <button onclick="showTab('list')" id="tab-list"
+            class="tab-btn px-5 py-3 rounded-t-xl font-semibold text-slate-600 hover:bg-slate-100">
+            List
+          </button>
+
+          <button onclick="showTab('calendar')" id="tab-calendar"
+            class="tab-btn px-5 py-3 rounded-t-xl font-semibold text-slate-600 hover:bg-slate-100">
+            Calendar
+          </button>
+        </nav>
+      </div>
+
+      <!-- Inbox View -->
+      <div id="view-inbox" class="tab-view p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-black">Inbox</h2>
+            <p class="text-slate-500 text-sm">Notifications for upcoming projects, dependencies, and due dates.</p>
+          </div>
+          <button class="px-4 py-2 rounded-xl bg-red-50 text-red-700 font-semibold text-sm">
+            Mark All Reviewed
+          </button>
+        </div>
+
+        <div class="space-y-4">
+
+          <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition bg-white">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="text-xs font-bold px-3 py-1 bg-red-100 text-red-700 rounded-full">Due Soon</span>
+                <h3 class="text-lg font-black mt-3">Johnson Family 1040 Return</h3>
+                <p class="text-sm text-slate-500 mt-1">Return Type: Individual 1040 · Due: Feb 8 · Expected: 5.5 hrs</p>
+              </div>
+              <button class="px-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-semibold">Open</button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 mt-5">
+              <div class="bg-slate-50 rounded-xl p-4">
+                <p class="text-xs font-bold text-slate-500 uppercase">Collaborators</p>
+                <p class="mt-2 text-sm font-semibold">Sarah M. · Daniel R.</p>
+              </div>
+              <div class="bg-red-50 rounded-xl p-4">
+                <p class="text-xs font-bold text-red-500 uppercase">Dependency</p>
+                <p class="mt-2 text-sm font-semibold text-red-700">K-1 from Johnson Holdings must be completed first.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition bg-white">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="text-xs font-bold px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full">Waiting</span>
+                <h3 class="text-lg font-black mt-3">Blue Ridge Dental S-Corp</h3>
+                <p class="text-sm text-slate-500 mt-1">Return Type: 1120-S · Due: Feb 12 · Expected: 8 hrs</p>
+              </div>
+              <button class="px-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-semibold">Open</button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 mt-5">
+              <div class="bg-slate-50 rounded-xl p-4">
+                <p class="text-xs font-bold text-slate-500 uppercase">Collaborators</p>
+                <p class="mt-2 text-sm font-semibold">Megan T. · Alex P.</p>
+              </div>
+              <div class="bg-yellow-50 rounded-xl p-4">
+                <p class="text-xs font-bold text-yellow-600 uppercase">Dependency</p>
+                <p class="mt-2 text-sm font-semibold text-yellow-700">Client payroll reports must be uploaded before preparation starts.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition bg-white">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <span class="text-xs font-bold px-3 py-1 bg-green-100 text-green-700 rounded-full">Ready</span>
+                <h3 class="text-lg font-black mt-3">Martinez Real Estate Partnership</h3>
+                <p class="text-sm text-slate-500 mt-1">Return Type: 1065 · Due: Feb 15 · Expected: 10 hrs</p>
+              </div>
+              <button class="px-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-semibold">Start</button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 mt-5">
+              <div class="bg-slate-50 rounded-xl p-4">
+                <p class="text-xs font-bold text-slate-500 uppercase">Collaborators</p>
+                <p class="mt-2 text-sm font-semibold">Olivia W. · Brian C.</p>
+              </div>
+              <div class="bg-green-50 rounded-xl p-4">
+                <p class="text-xs font-bold text-green-600 uppercase">Dependency</p>
+                <p class="mt-2 text-sm font-semibold text-green-700">Prior-year depreciation schedule already reviewed.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- List View -->
+      <div id="view-list" class="tab-view hidden p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-black">Upcoming Tasks</h2>
+            <p class="text-slate-500 text-sm">A clean task list for assigned returns and projects.</p>
+          </div>
+          <button class="px-4 py-2 rounded-xl bg-red-600 text-white font-semibold text-sm">
+            Add Task
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-slate-200 text-left text-slate-500">
+                <th class="py-3 pr-4">Client</th>
+                <th class="py-3 pr-4">Return Type</th>
+                <th class="py-3 pr-4">Due Date</th>
+                <th class="py-3 pr-4">Expected Hours</th>
+                <th class="py-3 pr-4">Status</th>
+                <th class="py-3 pr-4">Collaborators</th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="py-4 font-bold">Johnson Family</td>
+                <td>1040</td>
+                <td>Feb 8</td>
+                <td>5.5</td>
+                <td><span class="px-3 py-1 rounded-full bg-red-100 text-red-700 font-semibold text-xs">Due Soon</span></td>
+                <td>Sarah, Daniel</td>
+              </tr>
+
+              <tr>
+                <td class="py-4 font-bold">Blue Ridge Dental</td>
+                <td>1120-S</td>
+                <td>Feb 12</td>
+                <td>8</td>
+                <td><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 font-semibold text-xs">Waiting</span></td>
+                <td>Megan, Alex</td>
+              </tr>
+
+              <tr>
+                <td class="py-4 font-bold">Martinez Real Estate</td>
+                <td>1065</td>
+                <td>Feb 15</td>
+                <td>10</td>
+                <td><span class="px-3 py-1 rounded-full bg-green-100 text-green-700 font-semibold text-xs">Ready</span></td>
+                <td>Olivia, Brian</td>
+              </tr>
+
+              <tr>
+                <td class="py-4 font-bold">Westlake Medical Group</td>
+                <td>1120</td>
+                <td>Feb 20</td>
+                <td>12</td>
+                <td><span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-semibold text-xs">In Progress</span></td>
+                <td>Ryan, Emma</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Calendar View -->
+      <div id="view-calendar" class="tab-view hidden p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-black">Calendar</h2>
+            <p class="text-slate-500 text-sm">Week and month view of upcoming projects.</p>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="showCalendar('week')" id="calendar-week-btn"
+              class="calendar-btn px-4 py-2 rounded-xl bg-red-600 text-white font-semibold text-sm">
+              Week
+            </button>
+            <button onclick="showCalendar('month')" id="calendar-month-btn"
+              class="calendar-btn px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-semibold text-sm">
+              Month
+            </button>
+          </div>
+        </div>
+
+        <!-- Week Calendar -->
+        <div id="calendar-week" class="calendar-view">
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
+              <h3 class="font-black mb-3">Monday</h3>
+              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
+                <p class="font-bold text-sm">Johnson 1040</p>
+                <p class="text-xs text-slate-500">5.5 hrs · Due Feb 8</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
+              <h3 class="font-black mb-3">Tuesday</h3>
+              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
+                <p class="font-bold text-sm">Blue Ridge 1120-S</p>
+                <p class="text-xs text-slate-500">8 hrs · Waiting</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
+              <h3 class="font-black mb-3">Wednesday</h3>
+              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
+                <p class="font-bold text-sm">Martinez 1065</p>
+                <p class="text-xs text-slate-500">10 hrs · Ready</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
+              <h3 class="font-black mb-3">Thursday</h3>
+              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
+                <p class="font-bold text-sm">Westlake Medical</p>
+                <p class="text-xs text-slate-500">12 hrs · In Progress</p>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
+              <h3 class="font-black mb-3">Friday</h3>
+              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
+                <p class="font-bold text-sm">Internal Review</p>
+                <p class="text-xs text-slate-500">3 hrs · Team Check</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Month Calendar -->
+        <div id="calendar-month" class="calendar-view hidden">
+          <div class="grid grid-cols-7 gap-3 text-center text-sm font-bold text-slate-500 mb-3">
+            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+          </div>
+
+          <div class="grid grid-cols-7 gap-3">
+            <div class="h-28 bg-slate-100 rounded-xl p-2 text-slate-400">1</div>
+            <div class="h-28 bg-white border rounded-xl p-2">2</div>
+            <div class="h-28 bg-white border rounded-xl p-2">3</div>
+            <div class="h-28 bg-white border rounded-xl p-2">4</div>
+            <div class="h-28 bg-white border rounded-xl p-2">5</div>
+            <div class="h-28 bg-white border rounded-xl p-2">6</div>
+            <div class="h-28 bg-white border rounded-xl p-2">7</div>
+
+            <div class="h-28 bg-white border rounded-xl p-2">
+              <p>8</p>
+              <p class="mt-2 text-xs bg-red-100 text-red-700 rounded-lg px-2 py-1">Johnson 1040</p>
+            </div>
+
+            <div class="h-28 bg-white border rounded-xl p-2">9</div>
+            <div class="h-28 bg-white border rounded-xl p-2">10</div>
+            <div class="h-28 bg-white border rounded-xl p-2">11</div>
+
+            <div class="h-28 bg-white border rounded-xl p-2">
+              <p>12</p>
+              <p class="mt-2 text-xs bg-yellow-100 text-yellow-700 rounded-lg px-2 py-1">Blue Ridge</p>
+            </div>
+
+            <div class="h-28 bg-white border rounded-xl p-2">13</div>
+            <div class="h-28 bg-white border rounded-xl p-2">14</div>
+
+            <div class="h-28 bg-white border rounded-xl p-2">
+              <p>15</p>
+              <p class="mt-2 text-xs bg-green-100 text-green-700 rounded-lg px-2 py-1">Martinez</p>
+            </div>
+
+            <div class="h-28 bg-white border rounded-xl p-2">16</div>
+            <div class="h-28 bg-white border rounded-xl p-2">17</div>
+            <div class="h-28 bg-white border rounded-xl p-2">18</div>
+            <div class="h-28 bg-white border rounded-xl p-2">19</div>
+
+            <div class="h-28 bg-white border rounded-xl p-2">
+              <p>20</p>
+              <p class="mt-2 text-xs bg-blue-100 text-blue-700 rounded-lg px-2 py-1">Medical Group</p>
+            </div>
+
+            <div class="h-28 bg-white border rounded-xl p-2">21</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    function showTab(tab) {
+      document.querySelectorAll('.tab-view').forEach(view => {
+        view.classList.add('hidden');
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-red-600', 'text-white');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+      });
+
+      document.getElementById(`view-${tab}`).classList.remove('hidden');
+
+      const activeTab = document.getElementById(`tab-${tab}`);
+      activeTab.classList.add('bg-red-600', 'text-white');
+      activeTab.classList.remove('text-slate-600', 'hover:bg-slate-100');
+    }
+
+    function showCalendar(view) {
+      document.querySelectorAll('.calendar-view').forEach(section => {
+        section.classList.add('hidden');
+      });
+
+      document.querySelectorAll('.calendar-btn').forEach(btn => {
+        btn.classList.remove('bg-red-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+
+      document.getElementById(`calendar-${view}`).classList.remove('hidden');
+
+      const activeBtn = document.getElementById(`calendar-${view}-btn`);
+      activeBtn.classList.add('bg-red-600', 'text-white');
+      activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account | Rounders</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-red-50 via-white to-white text-slate-900">
+
+  <!-- Toast -->
+  <div id="toast"
+     class="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden max-w-sm rounded-2xl border px-5 py-4 shadow-xl bg-white">
+    <div class="flex items-start gap-3">
+      <div id="toastIcon"
+           class="mt-0.5 h-6 w-6 rounded-full flex items-center justify-center text-sm font-black">
+      </div>
+      <div>
+        <p id="toastTitle" class="font-black text-slate-900"></p>
+        <p id="toastMessage" class="mt-1 text-sm text-slate-600"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="min-h-screen flex items-center justify-center px-6 py-12">
+    <div class="w-full max-w-md">
+
+      <!-- Logo -->
+      <div class="text-center mb-8">
+        <a href="/" class="inline-flex items-center justify-center gap-3">
+          <div class="h-12 w-12 rounded-2xl bg-red-600 text-white flex items-center justify-center font-black text-xl shadow-lg">
+            R
+          </div>
+          <span class="text-3xl font-black tracking-tight">Rounders</span>
+        </a>
+        <p class="mt-3 text-slate-500 font-medium">
+          Scheduling intelligence for CPA firms
+        </p>
+      </div>
+
+      <!-- Card -->
+      <div class="bg-white border border-red-100 rounded-[2rem] shadow-2xl shadow-red-100 p-8">
+        <div class="mb-8">
+          <h1 class="text-3xl font-black tracking-tight">Create your account</h1>
+          <p class="mt-2 text-slate-500">
+            {{ invitation.company.practice_name }}
+          </p>
+        </div>
+
+        <form id="acceptInviteForm" method="POST" class="space-y-5">
+          {% csrf_token %}
+
+          <div>
+            <label for="username" class="block text-sm font-black text-slate-700 mb-2">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Choose a username"
+              required
+              class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-slate-900 placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-red-500 focus:ring-4 focus:ring-red-100"
+            />
+          </div>
+
+          <div>
+            <label for="password" class="block text-sm font-black text-slate-700 mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              required
+              class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-slate-900 placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-red-500 focus:ring-4 focus:ring-red-100"
+            />
+          </div>
+
+          <div>
+            <label for="confirm_password" class="block text-sm font-black text-slate-700 mb-2">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              placeholder="Re-enter your password"
+              required
+              class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-slate-900 placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-red-500 focus:ring-4 focus:ring-red-100"
+            />
+          </div>
+
+          <button
+            id="submitBtn"
+            type="submit"
+            class="w-full bg-red-600 hover:bg-red-700 text-white rounded-2xl py-4 font-black shadow-xl shadow-red-200 transition hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
+          >
+            Create Account
+          </button>
+        </form>
+      </div>
+
+      <p class="text-center text-sm text-slate-500 mt-6">
+        This invitation was sent to
+        <span class="font-semibold text-slate-700">{{ invitation.email }}</span>
+      </p>
+
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("acceptInviteForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    const toast = document.getElementById("toast");
+    const toastIcon = document.getElementById("toastIcon");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastMessage = document.getElementById("toastMessage");
+
+    function showToast(type, title, message) {
+      toast.classList.remove("hidden");
+
+      toast.className =
+        "fixed top-6 left-1/2 -translate-x-1/2 z-50 max-w-sm rounded-2xl border px-5 py-4 shadow-xl bg-white transition";
+
+      if (type === "success") {
+        toast.classList.add("border-green-200");
+        toastIcon.className =
+          "mt-0.5 h-6 w-6 rounded-full flex items-center justify-center text-sm font-black bg-green-100 text-green-700";
+        toastIcon.textContent = "✓";
+      } else {
+        toast.classList.add("border-red-200");
+        toastIcon.className =
+          "mt-0.5 h-6 w-6 rounded-full flex items-center justify-center text-sm font-black bg-red-100 text-red-700";
+        toastIcon.textContent = "!";
+      }
+
+      toastTitle.textContent = title;
+      toastMessage.textContent = message;
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 4000);
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating account...";
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(window.location.href, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-Requested-With": "XMLHttpRequest"
+          }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          showToast("error", "Account not created", data.message || "Something went wrong.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Create Account";
+          return;
+        }
+
+        showToast("success", "Account created", data.message);
+
+        setTimeout(() => {
+          window.location.href = data.redirect_url;
+        }, 900);
+
+      } catch (error) {
+        showToast("error", "Network error", "Please try again.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create Account";
+      }
+    });
+  </script>
+
+</body>
+</html>
