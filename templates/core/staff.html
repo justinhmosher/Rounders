@@ -227,161 +227,216 @@
         </div>
       </div>
 
-      <!-- Calendar View -->
-      <div id="view-calendar" class="tab-view hidden p-6">
-        <div class="flex items-center justify-between mb-6">
-          <div>
-            <h2 class="text-2xl font-black">Calendar</h2>
-            <p class="text-slate-500 text-sm">Week and month view of upcoming projects.</p>
-          </div>
+<!-- Calendar View -->
+<div id="view-calendar" class="tab-view hidden p-6">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h2 class="text-2xl font-black">Workload Calendar</h2>
+      <p class="text-slate-500 text-sm">
+        Projects grouped by week with booked hours by staff capacity.
+      </p>
+    </div>
 
-          <div class="flex gap-2">
-            <button onclick="showCalendar('week')" id="calendar-week-btn"
-              class="calendar-btn px-4 py-2 rounded-xl bg-red-600 text-white font-semibold text-sm">
-              Week
-            </button>
-            <button onclick="showCalendar('month')" id="calendar-month-btn"
-              class="calendar-btn px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-semibold text-sm">
-              Month
-            </button>
-          </div>
-        </div>
+    <div class="flex gap-2">
+    </div>
+  </div>
 
-        <!-- Week Calendar -->
-        <div id="calendar-week" class="calendar-view">
-          <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
-              <h3 class="font-black mb-3">Monday</h3>
-              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
-                <p class="font-bold text-sm">Johnson 1040</p>
-                <p class="text-xs text-slate-500">5.5 hrs · Due Feb 8</p>
-              </div>
-            </div>
+  <!-- Controls -->
+  <div class="flex items-center justify-between mb-8">
+    <button class="h-10 w-10 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50">
+      ‹
+    </button>
 
-            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
-              <h3 class="font-black mb-3">Tuesday</h3>
-              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
-                <p class="font-bold text-sm">Blue Ridge 1120-S</p>
-                <p class="text-xs text-slate-500">8 hrs · Waiting</p>
-              </div>
-            </div>
+    <div class="px-6 py-3 rounded-xl border border-slate-200 bg-white font-bold text-slate-700 shadow-sm">
+      May 4 - Jul 26, 2026
+    </div>
 
-            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
-              <h3 class="font-black mb-3">Wednesday</h3>
-              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
-                <p class="font-bold text-sm">Martinez 1065</p>
-                <p class="text-xs text-slate-500">10 hrs · Ready</p>
-              </div>
-            </div>
+    <button class="h-10 w-10 rounded-xl border border-slate-200 bg-white text-slate-500 hover:bg-slate-50">
+      ›
+    </button>
+  </div>
 
-            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
-              <h3 class="font-black mb-3">Thursday</h3>
-              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
-                <p class="font-bold text-sm">Westlake Medical</p>
-                <p class="text-xs text-slate-500">12 hrs · In Progress</p>
-              </div>
-            </div>
+  <!-- Bar Chart -->
+  <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm mb-6">
+    <div class="relative h-80">
 
-            <div class="bg-slate-50 rounded-2xl p-4 min-h-64">
-              <h3 class="font-black mb-3">Friday</h3>
-              <div class="bg-white border border-slate-200 rounded-xl p-3 mb-3">
-                <p class="font-bold text-sm">Internal Review</p>
-                <p class="text-xs text-slate-500">3 hrs · Team Check</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Month Calendar -->
-        <div id="calendar-month" class="calendar-view hidden">
-          <div class="grid grid-cols-7 gap-3 text-center text-sm font-bold text-slate-500 mb-3">
-            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-          </div>
-
-          <div class="grid grid-cols-7 gap-3">
-            <div class="h-28 bg-slate-100 rounded-xl p-2 text-slate-400">1</div>
-            <div class="h-28 bg-white border rounded-xl p-2">2</div>
-            <div class="h-28 bg-white border rounded-xl p-2">3</div>
-            <div class="h-28 bg-white border rounded-xl p-2">4</div>
-            <div class="h-28 bg-white border rounded-xl p-2">5</div>
-            <div class="h-28 bg-white border rounded-xl p-2">6</div>
-            <div class="h-28 bg-white border rounded-xl p-2">7</div>
-
-            <div class="h-28 bg-white border rounded-xl p-2">
-              <p>8</p>
-              <p class="mt-2 text-xs bg-red-100 text-red-700 rounded-lg px-2 py-1">Johnson 1040</p>
-            </div>
-
-            <div class="h-28 bg-white border rounded-xl p-2">9</div>
-            <div class="h-28 bg-white border rounded-xl p-2">10</div>
-            <div class="h-28 bg-white border rounded-xl p-2">11</div>
-
-            <div class="h-28 bg-white border rounded-xl p-2">
-              <p>12</p>
-              <p class="mt-2 text-xs bg-yellow-100 text-yellow-700 rounded-lg px-2 py-1">Blue Ridge</p>
-            </div>
-
-            <div class="h-28 bg-white border rounded-xl p-2">13</div>
-            <div class="h-28 bg-white border rounded-xl p-2">14</div>
-
-            <div class="h-28 bg-white border rounded-xl p-2">
-              <p>15</p>
-              <p class="mt-2 text-xs bg-green-100 text-green-700 rounded-lg px-2 py-1">Martinez</p>
-            </div>
-
-            <div class="h-28 bg-white border rounded-xl p-2">16</div>
-            <div class="h-28 bg-white border rounded-xl p-2">17</div>
-            <div class="h-28 bg-white border rounded-xl p-2">18</div>
-            <div class="h-28 bg-white border rounded-xl p-2">19</div>
-
-            <div class="h-28 bg-white border rounded-xl p-2">
-              <p>20</p>
-              <p class="mt-2 text-xs bg-blue-100 text-blue-700 rounded-lg px-2 py-1">Medical Group</p>
-            </div>
-
-            <div class="h-28 bg-white border rounded-xl p-2">21</div>
-          </div>
+      <!-- Grid Lines -->
+      <div class="absolute inset-0 pl-10 pb-8">
+        <div class="h-full flex flex-col justify-between">
+          <div class="border-t border-slate-100 text-xs text-slate-400">80</div>
+          <div class="border-t border-slate-100 text-xs text-slate-400">60</div>
+          <div class="border-t border-slate-100 text-xs text-slate-400">40</div>
+          <div class="border-t border-slate-100 text-xs text-slate-400">20</div>
+          <div class="border-t border-slate-200 text-xs text-slate-400">0</div>
         </div>
       </div>
+
+      <!-- Bars -->
+      <div class="absolute inset-0 pl-14 pr-4 pb-8 flex items-end gap-6">
+
+        <button onclick="selectWeek('May 4 - 10', '40.1')" class="h-full flex-1 flex flex-col justify-end group">
+          <div class="w-full bg-red-600 rounded-t-xl hover:bg-red-700 transition" style="height: 50%;"></div>
+          <span class="text-xs text-slate-500 mt-2">May 4</span>
+        </button>
+
+        <button onclick="selectWeek('May 11 - 17', '18')" class="h-full flex-1 flex flex-col justify-end group">
+          <div class="w-full bg-red-200 rounded-t-xl hover:bg-red-300 transition" style="height: 22%;"></div>
+          <span class="text-xs text-slate-500 mt-2">May 11</span>
+        </button>
+
+        <button onclick="selectWeek('May 18 - 24', '56')" class="h-full flex-1 flex flex-col justify-end group">
+          <div class="w-full bg-red-300 rounded-t-xl hover:bg-red-400 transition" style="height: 70%;"></div>
+          <span class="text-xs text-slate-500 mt-2">May 18</span>
+        </button>
+
+        <button onclick="selectWeek('May 25 - 31', '64')" class="h-full flex-1 flex flex-col justify-end group">
+          <div class="w-full bg-red-400 rounded-t-xl hover:bg-red-500 transition" style="height: 80%;"></div>
+          <span class="text-xs text-slate-500 mt-2">May 25</span>
+        </button>
+
+        <button onclick="selectWeek('Jun 1 - 7', '40')" class="h-full flex-1 flex flex-col justify-end group">
+          <div class="w-full bg-red-300 rounded-t-xl hover:bg-red-400 transition" style="height: 50%;"></div>
+          <span class="text-xs text-slate-500 mt-2">Jun 1</span>
+        </button>
+
+        <button onclick="selectWeek('Jun 8 - 14', '80')" class="h-full flex-1 flex flex-col justify-end group">
+          <div class="w-full bg-red-500 rounded-t-xl hover:bg-red-600 transition" style="height: 100%;"></div>
+          <span class="text-xs text-slate-500 mt-2">Jun 8</span>
+        </button>
+
+        <button onclick="selectWeek('Jun 15 - 21', '44')" class="h-full flex-1 flex flex-col justify-end group">
+          <div class="w-full bg-red-300 rounded-t-xl hover:bg-red-400 transition" style="height: 55%;"></div>
+          <span class="text-xs text-slate-500 mt-2">Jun 15</span>
+        </button>
+
+        <button onclick="selectWeek('Jun 22 - 28', '32')" class="h-full flex-1 flex flex-col justify-end group">
+          <div class="w-full bg-red-300 rounded-t-xl hover:bg-red-400 transition" style="height: 40%;"></div>
+          <span class="text-xs text-slate-500 mt-2">Jun 22</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected Week Summary -->
+  <div class="flex items-center gap-4 mb-5">
+    <div class="h-5 w-1 rounded-full bg-red-600"></div>
+    <h3 class="font-black text-lg">
+      <span id="selected-week-label">May 4 - 10</span>
+    </h3>
+    <span class="text-sm text-slate-500">
+      <span id="selected-week-hours">40.1</span> hrs booked
+    </span>
+  </div>
+
+  <!-- Project List -->
+  <div id="calendar-project-list" class="space-y-3"></div>
+</div>
 
     </section>
   </main>
 
-  <script>
-    function showTab(tab) {
-      document.querySelectorAll('.tab-view').forEach(view => {
-        view.classList.add('hidden');
-      });
+<script>
+  const weeklyProjects = {
+    "May 4 - 10": [
+      ["Johnson Family 1040", "Individual Return", "Due May 7", "Sarah M., Daniel R.", "K-1 must be reviewed first", "ASSIGNED", "6.5 hrs", "green"],
+      ["Westlake Medical Group", "1120-S Return", "Due May 8", "Megan T., Alex P.", "Waiting on payroll reports", "HELD", "8 hrs", "yellow"],
+      ["Martinez Real Estate Partnership", "1065 Return", "Due May 9", "Olivia W., Brian C.", "Prior-year depreciation reviewed", "ASSIGNED", "10 hrs", "green"],
+      ["Oak Valley Trust", "1041 Return", "Due May 10", "Claire B.", "None", "IN REVIEW", "5.5 hrs", "blue"]
+    ],
+    "May 11 - 17": [
+      ["Garcia Dental Group", "1120-S Return", "Due May 13", "Megan T.", "Bookkeeper trial balance needed", "HELD", "7 hrs", "yellow"],
+      ["Taylor Family", "1040 Return", "Due May 15", "Daniel R.", "None", "ASSIGNED", "4 hrs", "green"],
+      ["Oak Ridge Holdings", "1065 Return", "Due May 17", "Sarah M.", "Partner K-1s pending", "BLOCKED", "7 hrs", "red"]
+    ],
+    "May 18 - 24": [
+      ["Blue Ridge Dental", "1120-S Return", "Due May 20", "Alex P.", "Payroll reports uploaded", "ASSIGNED", "8 hrs", "green"],
+      ["North Valley Rentals", "1065 Return", "Due May 22", "Olivia W.", "Depreciation schedule needed", "HELD", "10 hrs", "yellow"],
+      ["Anderson Family", "1040 Return", "Due May 24", "Brian C.", "Brokerage 1099 pending", "BLOCKED", "6 hrs", "red"]
+    ],
+    "May 25 - 31": [
+      ["Summit Consulting LLC", "1065 Return", "Due May 27", "Sarah M., Alex P.", "None", "ASSIGNED", "12 hrs", "green"],
+      ["Miller Family", "1040 Return", "Due May 29", "Daniel R.", "K-1 from Summit required first", "HELD", "5 hrs", "yellow"],
+      ["Canyon Retail Inc.", "1120 Return", "Due May 31", "Megan T.", "Inventory reserve review", "IN REVIEW", "14 hrs", "blue"]
+    ],
+    "Jun 1 - 7": [
+      ["Pacific Builders", "1120-S Return", "Due Jun 3", "Brian C.", "None", "ASSIGNED", "9 hrs", "green"],
+      ["Wilson Family", "1040 Return", "Due Jun 4", "Claire B.", "Missing charitable receipts", "HELD", "3 hrs", "yellow"],
+      ["Hillcrest Properties", "1065 Return", "Due Jun 6", "Olivia W.", "Rental schedule complete", "ASSIGNED", "8 hrs", "green"]
+    ],
+    "Jun 8 - 14": [
+      ["Evergreen Manufacturing", "1120 Return", "Due Jun 10", "Sarah M., Megan T.", "Cost accounting schedule needed", "HELD", "20 hrs", "yellow"],
+      ["Stone Creek Partners", "1065 Return", "Due Jun 12", "Alex P., Brian C.", "None", "ASSIGNED", "18 hrs", "green"],
+      ["Reed Executive Return", "1040 Return", "Due Jun 14", "Daniel R.", "Stock option detail needed", "BLOCKED", "9 hrs", "red"]
+    ],
+    "Jun 15 - 21": [
+      ["Valley Dermatology", "1120-S Return", "Due Jun 17", "Megan T.", "None", "ASSIGNED", "11 hrs", "green"],
+      ["Coastal Rentals", "1065 Return", "Due Jun 19", "Olivia W.", "Depreciation review", "IN REVIEW", "10 hrs", "blue"]
+    ],
+    "Jun 22 - 28": [
+      ["Harbor Family Office", "1041 Return", "Due Jun 24", "Sarah M.", "Trust accounting packet needed", "HELD", "8 hrs", "yellow"],
+      ["Bennett Family", "1040 Return", "Due Jun 26", "Claire B.", "None", "ASSIGNED", "5 hrs", "green"],
+      ["Northstar LLC", "1065 Return", "Due Jun 28", "Alex P.", "Prior year return review", "ASSIGNED", "9 hrs", "green"]
+    ]
+  };
 
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-red-600', 'text-white');
-        btn.classList.add('text-slate-600', 'hover:bg-slate-100');
-      });
+  function showTab(tab) {
+    document.querySelectorAll('.tab-view').forEach(view => {
+      view.classList.add('hidden');
+    });
 
-      document.getElementById(`view-${tab}`).classList.remove('hidden');
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.remove('bg-red-600', 'text-white');
+      btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+    });
 
-      const activeTab = document.getElementById(`tab-${tab}`);
-      activeTab.classList.add('bg-red-600', 'text-white');
-      activeTab.classList.remove('text-slate-600', 'hover:bg-slate-100');
-    }
+    document.getElementById(`view-${tab}`).classList.remove('hidden');
 
-    function showCalendar(view) {
-      document.querySelectorAll('.calendar-view').forEach(section => {
-        section.classList.add('hidden');
-      });
+    const activeTab = document.getElementById(`tab-${tab}`);
+    activeTab.classList.add('bg-red-600', 'text-white');
+    activeTab.classList.remove('text-slate-600', 'hover:bg-slate-100');
+  }
 
-      document.querySelectorAll('.calendar-btn').forEach(btn => {
-        btn.classList.remove('bg-red-600', 'text-white');
-        btn.classList.add('bg-slate-100', 'text-slate-700');
-      });
+  function selectWeek(week, hours) {
+    document.getElementById('selected-week-label').innerText = week;
+    document.getElementById('selected-week-hours').innerText = hours;
 
-      document.getElementById(`calendar-${view}`).classList.remove('hidden');
+    const list = document.getElementById('calendar-project-list');
+    list.innerHTML = "";
 
-      const activeBtn = document.getElementById(`calendar-${view}-btn`);
-      activeBtn.classList.add('bg-red-600', 'text-white');
-      activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
-    }
-  </script>
+    weeklyProjects[week].forEach(project => {
+      const [client, type, due, collaborators, dependency, status, hoursText, color] = project;
+
+      const badgeColors = {
+        green: "bg-green-100 text-green-700",
+        yellow: "bg-yellow-100 text-yellow-700",
+        blue: "bg-blue-100 text-blue-700",
+        red: "bg-red-100 text-red-700"
+      };
+
+      list.innerHTML += `
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 flex items-center justify-between hover:shadow-md transition">
+          <div>
+            <h4 class="font-black">${client}</h4>
+            <p class="text-sm text-slate-500">
+              ${type} · ${due} · Collaborators: ${collaborators}
+            </p>
+            <p class="text-xs mt-1 font-semibold ${color === 'red' ? 'text-red-600' : color === 'yellow' ? 'text-yellow-600' : 'text-slate-500'}">
+              Dependency: ${dependency}
+            </p>
+          </div>
+
+          <div class="text-right">
+            <span class="px-3 py-1 rounded-full ${badgeColors[color]} text-xs font-bold">${status}</span>
+            <p class="font-black mt-2">${hoursText}</p>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  selectWeek("May 4 - 10", "40.1");
+</script>
 
 </body>
 </html>
