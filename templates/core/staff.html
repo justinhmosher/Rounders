@@ -75,6 +75,10 @@
             class="tab-btn px-5 py-3 rounded-t-xl font-semibold text-slate-600 hover:bg-slate-100">
             Calendar
           </button>
+          <button onclick="showTab('team')" id="tab-team"
+          class="tab-btn px-5 py-3 rounded-t-xl font-semibold text-slate-600 hover:bg-slate-100">
+            Team
+        </button>
         </nav>
       </div>
 
@@ -97,7 +101,7 @@
               <div>
                 <span class="text-xs font-bold px-3 py-1 bg-red-100 text-red-700 rounded-full">Due Soon</span>
                 <h3 class="text-lg font-black mt-3">Johnson Family 1040 Return</h3>
-                <p class="text-sm text-slate-500 mt-1">Return Type: Individual 1040 · Due: Feb 8 · Expected: 5.5 hrs</p>
+                <p class="text-sm text-slate-500 mt-1">Return Type: Individual 1040 · Due: May 8 · Expected: 5.5 hrs</p>
               </div>
               <button class="px-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-semibold">Open</button>
             </div>
@@ -119,7 +123,7 @@
               <div>
                 <span class="text-xs font-bold px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full">Waiting</span>
                 <h3 class="text-lg font-black mt-3">Blue Ridge Dental S-Corp</h3>
-                <p class="text-sm text-slate-500 mt-1">Return Type: 1120-S · Due: Feb 12 · Expected: 8 hrs</p>
+                <p class="text-sm text-slate-500 mt-1">Return Type: 1120-S · Due: May 12 · Expected: 8 hrs</p>
               </div>
               <button class="px-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-semibold">Open</button>
             </div>
@@ -141,7 +145,7 @@
               <div>
                 <span class="text-xs font-bold px-3 py-1 bg-green-100 text-green-700 rounded-full">Ready</span>
                 <h3 class="text-lg font-black mt-3">Martinez Real Estate Partnership</h3>
-                <p class="text-sm text-slate-500 mt-1">Return Type: 1065 · Due: Feb 15 · Expected: 10 hrs</p>
+                <p class="text-sm text-slate-500 mt-1">Return Type: 1065 · Due: May 15 · Expected: 10 hrs</p>
               </div>
               <button class="px-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-semibold">Start</button>
             </div>
@@ -190,7 +194,7 @@
               <tr>
                 <td class="py-4 font-bold">Johnson Family</td>
                 <td>1040</td>
-                <td>Feb 8</td>
+                <td>May 8</td>
                 <td>5.5</td>
                 <td><span class="px-3 py-1 rounded-full bg-red-100 text-red-700 font-semibold text-xs">Due Soon</span></td>
                 <td>Sarah, Daniel</td>
@@ -199,7 +203,7 @@
               <tr>
                 <td class="py-4 font-bold">Blue Ridge Dental</td>
                 <td>1120-S</td>
-                <td>Feb 12</td>
+                <td>May 12</td>
                 <td>8</td>
                 <td><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 font-semibold text-xs">Waiting</span></td>
                 <td>Megan, Alex</td>
@@ -208,7 +212,7 @@
               <tr>
                 <td class="py-4 font-bold">Martinez Real Estate</td>
                 <td>1065</td>
-                <td>Feb 15</td>
+                <td>May 15</td>
                 <td>10</td>
                 <td><span class="px-3 py-1 rounded-full bg-green-100 text-green-700 font-semibold text-xs">Ready</span></td>
                 <td>Olivia, Brian</td>
@@ -217,7 +221,7 @@
               <tr>
                 <td class="py-4 font-bold">Westlake Medical Group</td>
                 <td>1120</td>
-                <td>Feb 20</td>
+                <td>May 20</td>
                 <td>12</td>
                 <td><span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-semibold text-xs">In Progress</span></td>
                 <td>Ryan, Emma</td>
@@ -333,6 +337,217 @@
   <div id="calendar-project-list" class="space-y-3"></div>
 </div>
 
+<!-- Team View -->
+<div id="view-team" class="tab-view hidden p-6">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h2 class="text-2xl font-black">Team Work Planner</h2>
+      <p class="text-slate-500 text-sm">
+        Staff workload by person, project, SafeSend upload date, status, and projected hours.
+      </p>
+    </div>
+
+    <button class="px-4 py-2 rounded-xl bg-slate-900 text-white font-semibold text-sm">
+      Export Team Plan
+    </button>
+  </div>
+
+  <div class="overflow-x-auto border border-slate-200 rounded-2xl bg-white shadow-sm">
+    <table class="w-full text-sm">
+      <thead class="bg-slate-50 border-b border-slate-200">
+        <tr class="text-left text-slate-500">
+          <th class="py-3 px-4 w-10"></th>
+          <th class="py-3 px-4">Staff</th>
+          <th class="py-3 px-4">Current Project</th>
+          <th class="py-3 px-4">Docs Uploaded</th>
+          <th class="py-3 px-4">Status</th>
+          <th class="py-3 px-4 text-right">Projected Hours</th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-slate-100">
+
+        <!-- Staff 1 -->
+        <tr class="bg-white hover:bg-slate-50 cursor-pointer" onclick="toggleStaff('sarah-projects', 'sarah-arrow')">
+          <td class="py-4 px-4 font-bold text-slate-400">
+            <span id="sarah-arrow">›</span>
+          </td>
+          <td class="py-4 px-4 font-black">Sarah Mitchell</td>
+          <td class="py-4 px-4 text-slate-600">4 active projects</td>
+          <td class="py-4 px-4 text-slate-600">Oldest: April 28, 2026</td>
+          <td class="py-4 px-4">
+            <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">OVER CAPACITY</span>
+          </td>
+          <td class="py-4 px-4 text-right font-black">46.5 hrs</td>
+        </tr>
+
+        <tr id="sarah-projects" class="hidden bg-slate-50">
+          <td colspan="6" class="px-8 py-4">
+            <div class="space-y-3">
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Johnson Family 1040</div>
+                <div>1040 Individual</div>
+                <div>Docs Uploaded: April 28</div>
+                <div><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ASSIGNED</span></div>
+                <div class="text-right font-black">6.5 hrs</div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Evergreen Manufacturing</div>
+                <div>1120 Corporate</div>
+                <div>Docs Uploaded: May 1</div>
+                <div><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">WAITING</span></div>
+                <div class="text-right font-black">20 hrs</div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Stone Creek Partners</div>
+                <div>1065 Partnership</div>
+                <div>Docs Uploaded: May 4</div>
+                <div><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">IN REVIEW</span></div>
+                <div class="text-right font-black">12 hrs</div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Harbor Family Office</div>
+                <div>1041 Trust</div>
+                <div>Docs Uploaded: May 6</div>
+                <div><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ASSIGNED</span></div>
+                <div class="text-right font-black">8 hrs</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Staff 2 -->
+        <tr class="bg-white hover:bg-slate-50 cursor-pointer" onclick="toggleStaff('daniel-projects', 'daniel-arrow')">
+          <td class="py-4 px-4 font-bold text-slate-400">
+            <span id="daniel-arrow">›</span>
+          </td>
+          <td class="py-4 px-4 font-black">Daniel Ruiz</td>
+          <td class="py-4 px-4 text-slate-600">3 active projects</td>
+          <td class="py-4 px-4 text-slate-600">Oldest: May 2, 2026</td>
+          <td class="py-4 px-4">
+            <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ON TRACK</span>
+          </td>
+          <td class="py-4 px-4 text-right font-black">31 hrs</td>
+        </tr>
+
+        <tr id="daniel-projects" class="hidden bg-slate-50">
+          <td colspan="6" class="px-8 py-4">
+            <div class="space-y-3">
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Taylor Family</div>
+                <div>1040 Individual</div>
+                <div>Docs Uploaded: May 2</div>
+                <div><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ASSIGNED</span></div>
+                <div class="text-right font-black">4 hrs</div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Reed Executive Return</div>
+                <div>1040 Individual</div>
+                <div>Docs Uploaded: May 3</div>
+                <div><span class="px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">BLOCKED</span></div>
+                <div class="text-right font-black">9 hrs</div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Blue Ridge Dental</div>
+                <div>1120-S</div>
+                <div>Docs Uploaded: May 5</div>
+                <div><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">IN REVIEW</span></div>
+                <div class="text-right font-black">18 hrs</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Staff 3 -->
+        <tr class="bg-white hover:bg-slate-50 cursor-pointer" onclick="toggleStaff('megan-projects', 'megan-arrow')">
+          <td class="py-4 px-4 font-bold text-slate-400">
+            <span id="megan-arrow">›</span>
+          </td>
+          <td class="py-4 px-4 font-black">Megan Thompson</td>
+          <td class="py-4 px-4 text-slate-600">3 active projects</td>
+          <td class="py-4 px-4 text-slate-600">Oldest: April 30, 2026</td>
+          <td class="py-4 px-4">
+            <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">NEEDS REVIEW</span>
+          </td>
+          <td class="py-4 px-4 text-right font-black">38 hrs</td>
+        </tr>
+
+        <tr id="megan-projects" class="hidden bg-slate-50">
+          <td colspan="6" class="px-8 py-4">
+            <div class="space-y-3">
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Westlake Medical Group</div>
+                <div>1120-S</div>
+                <div>Docs Uploaded: April 30</div>
+                <div><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">HELD</span></div>
+                <div class="text-right font-black">8 hrs</div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Canyon Retail Inc.</div>
+                <div>1120 Corporate</div>
+                <div>Docs Uploaded: May 2</div>
+                <div><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">IN REVIEW</span></div>
+                <div class="text-right font-black">14 hrs</div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Valley Dermatology</div>
+                <div>1120-S</div>
+                <div>Docs Uploaded: May 7</div>
+                <div><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ASSIGNED</span></div>
+                <div class="text-right font-black">16 hrs</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Staff 4 -->
+        <tr class="bg-white hover:bg-slate-50 cursor-pointer" onclick="toggleStaff('olivia-projects', 'olivia-arrow')">
+          <td class="py-4 px-4 font-bold text-slate-400">
+            <span id="olivia-arrow">›</span>
+          </td>
+          <td class="py-4 px-4 font-black">Olivia Walker</td>
+          <td class="py-4 px-4 text-slate-600">2 active projects</td>
+          <td class="py-4 px-4 text-slate-600">Oldest: May 1, 2026</td>
+          <td class="py-4 px-4">
+            <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ON TRACK</span>
+          </td>
+          <td class="py-4 px-4 text-right font-black">26 hrs</td>
+        </tr>
+
+        <tr id="olivia-projects" class="hidden bg-slate-50">
+          <td colspan="6" class="px-8 py-4">
+            <div class="space-y-3">
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Martinez Real Estate Partnership</div>
+                <div>1065 Partnership</div>
+                <div>Docs Uploaded: May 1</div>
+                <div><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ASSIGNED</span></div>
+                <div class="text-right font-black">10 hrs</div>
+              </div>
+
+              <div class="grid grid-cols-5 gap-4 bg-white border rounded-xl p-4">
+                <div class="font-bold">Coastal Rentals</div>
+                <div>1065 Partnership</div>
+                <div>Docs Uploaded: May 6</div>
+                <div><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">IN REVIEW</span></div>
+                <div class="text-right font-black">16 hrs</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
     </section>
   </main>
 
@@ -436,6 +651,18 @@
   }
 
   selectWeek("May 4 - 10", "40.1");
+  function toggleStaff(projectRowId, arrowId) {
+  const row = document.getElementById(projectRowId);
+  const arrow = document.getElementById(arrowId);
+
+  row.classList.toggle('hidden');
+
+  if (row.classList.contains('hidden')) {
+    arrow.innerText = '›';
+  } else {
+    arrow.innerText = '⌄';
+  }
+}
 </script>
 
 </body>

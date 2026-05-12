@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rounders | Manager Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+  <!-- Top Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 bg-red-600 rounded-xl flex items-center justify-center text-white font-black">
+          R
+        </div>
+        <div>
+          <h1 class="text-xl font-black">Rounders</h1>
+          <p class="text-xs text-slate-500">CPA Manager Workload Dashboard</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="text-sm text-slate-500 hidden sm:block">Tax Season 2026</div>
+        <button class="px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold">
+          Manager Profile
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8">
+
+    <!-- Summary Cards -->
+    <section class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <p class="text-sm text-slate-500">Total Active Projects</p>
+        <h2 class="text-3xl font-black mt-2">74</h2>
+        <p class="text-xs text-slate-400 mt-2">Across all preparers</p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <p class="text-sm text-slate-500">Ready to Assign</p>
+        <h2 class="text-3xl font-black mt-2">12</h2>
+        <p class="text-xs text-slate-400 mt-2">Docs received through SafeSend</p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <p class="text-sm text-slate-500">Team Capacity Used</p>
+        <h2 class="text-3xl font-black mt-2">84%</h2>
+        <p class="text-xs text-red-600 font-semibold mt-2">Sarah and Megan over target</p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <p class="text-sm text-slate-500">Blocked / Late</p>
+        <h2 class="text-3xl font-black mt-2 text-red-600">9</h2>
+        <p class="text-xs text-slate-400 mt-2">Needs manager attention</p>
+      </div>
+    </section>
+
+    <!-- Main Manager Workspace -->
+    <section class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+
+      <!-- Assignment Form -->
+      <div class="xl:col-span-1 bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+        <div class="flex items-start justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl font-black">Assign Work</h2>
+            <p class="text-sm text-slate-500">Assign work, estimate hours, set owner, and override priority.</p>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">MANAGER</span>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs font-bold uppercase text-slate-500">Client / Project</label>
+            <input value="Anderson Family 1040" class="mt-2 w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold uppercase text-slate-500">Return Type</label>
+              <select class="mt-2 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                <option>1040 Individual</option>
+                <option>1120-S S-Corp</option>
+                <option>1065 Partnership</option>
+                <option>1120 Corporate</option>
+                <option>1041 Trust</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase text-slate-500">Expected Hours</label>
+              <input type="number" value="6.5" class="mt-2 w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold uppercase text-slate-500">Assign To</label>
+              <select class="mt-2 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                <option>Daniel Ruiz</option>
+                <option>Sarah Mitchell</option>
+                <option>Megan Thompson</option>
+                <option>Olivia Walker</option>
+                <option>Claire Bennett</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase text-slate-500">Priority Override</label>
+              <select class="mt-2 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+                <option>Urgent</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold uppercase text-slate-500">Due Date</label>
+              <input type="date" value="2026-05-16" class="mt-2 w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500" />
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase text-slate-500">Status</label>
+              <select class="mt-2 w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                <option>Ready to Start</option>
+                <option>Assigned</option>
+                <option>In Progress</option>
+                <option>Under Review</option>
+                <option>Waiting on Client</option>
+                <option>Complete</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-bold uppercase text-slate-500">Manager Notes</label>
+            <textarea rows="4" class="mt-2 w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500">Client uploaded all core documents. Prioritize because oldest SafeSend upload date is May 2.</textarea>
+          </div>
+
+          <button class="w-full px-4 py-3 rounded-xl bg-red-600 text-white font-bold shadow-sm hover:bg-red-700 transition">
+            Assign Project
+          </button>
+        </div>
+      </div>
+
+      <!-- Team Capacity -->
+      <div class="xl:col-span-2 bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-black">Assignment Control</h2>
+            <p class="text-slate-500 text-sm">See available staff, current workload, and where a project can be reassigned.</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="font-black">Sarah Mitchell</h3>
+                <p class="text-sm text-slate-500">Senior Preparer · 5 active projects</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">OVER CAPACITY</span>
+            </div>
+            <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-red-600 rounded-full" style="width: 112%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-500 mt-2">
+              <span>44.5 / 40 hrs booked</span>
+              <span>Next available: May 20</span>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="font-black">Daniel Ruiz</h3>
+                <p class="text-sm text-slate-500">Preparer · 3 active projects</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">AVAILABLE</span>
+            </div>
+            <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-green-500 rounded-full" style="width: 67%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-500 mt-2">
+              <span>26.8 / 40 hrs booked</span>
+              <span>13.2 hrs open</span>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="font-black">Megan Thompson</h3>
+                <p class="text-sm text-slate-500">Reviewer · 4 active projects</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">NEAR LIMIT</span>
+            </div>
+            <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-yellow-500 rounded-full" style="width: 92%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-500 mt-2">
+              <span>36.8 / 40 hrs booked</span>
+              <span>3.2 hrs open</span>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-2xl p-5 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="font-black">Olivia Walker</h3>
+                <p class="text-sm text-slate-500">Preparer · 2 active projects</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">AVAILABLE</span>
+            </div>
+            <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-green-500 rounded-full" style="width: 52%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-500 mt-2">
+              <span>20.9 / 40 hrs booked</span>
+              <span>19.1 hrs open</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <section class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+
+      <div class="border-b border-slate-200 px-6 pt-5">
+        <nav class="flex flex-wrap gap-2">
+          <button onclick="showTab('master')" id="tab-master"
+            class="tab-btn px-5 py-3 rounded-t-xl font-semibold bg-red-600 text-white">
+            Master Client Sheet
+          </button>
+
+          <button onclick="showTab('projects')" id="tab-projects"
+            class="tab-btn px-5 py-3 rounded-t-xl font-semibold text-slate-600 hover:bg-slate-100">
+            Projects
+          </button>
+
+          <button onclick="showTab('reassign')" id="tab-reassign"
+            class="tab-btn px-5 py-3 rounded-t-xl font-semibold text-slate-600 hover:bg-slate-100">
+            Reassign Work
+          </button>
+
+          
+        </nav>
+      </div>
+
+      <!-- Master Client Sheet View -->
+      <div id="view-master" class="tab-view p-6">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl font-black">Master Client Sheet</h2>
+            <p class="text-slate-500 text-sm">The control center for tracking every client, who owns the work, what is blocking it, estimated hours, priority override, and next action.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <input placeholder="Search client, staff, dependency..." class="px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 min-w-72" />
+            <select class="px-4 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-600">
+              <option>All Statuses</option>
+              <option>Ready to Start</option>
+              <option>In Progress</option>
+              <option>Waiting on Client</option>
+              <option>Blocked</option>
+              <option>Under Review</option>
+              <option>Complete</option>
+            </select>
+            <button class="px-4 py-2 rounded-xl bg-red-600 text-white font-semibold text-sm">Add Client</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="text-xs font-bold uppercase text-slate-500">Unassigned</p>
+            <h3 class="text-2xl font-black mt-1">5</h3>
+          </div>
+          <div class="rounded-2xl border border-red-200 bg-red-50 p-4">
+            <p class="text-xs font-bold uppercase text-red-600">Blocked Dependencies</p>
+            <h3 class="text-2xl font-black mt-1 text-red-700">7</h3>
+          </div>
+          <div class="rounded-2xl border border-yellow-200 bg-yellow-50 p-4">
+            <p class="text-xs font-bold uppercase text-yellow-700">Waiting on Client</p>
+            <h3 class="text-2xl font-black mt-1 text-yellow-700">11</h3>
+          </div>
+          <div class="rounded-2xl border border-green-200 bg-green-50 p-4">
+            <p class="text-xs font-bold uppercase text-green-700">No Issues</p>
+            <h3 class="text-2xl font-black mt-1 text-green-700">51</h3>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-2xl bg-white shadow-sm">
+          <table class="w-full text-sm min-w-[1250px]">
+            <thead class="bg-slate-50 border-b border-slate-200">
+              <tr class="text-left text-slate-500">
+                <th class="py-3 px-4">Client</th>
+                <th class="py-3 px-4">Return Type</th>
+                <th class="py-3 px-4">Primary Staff</th>
+                <th class="py-3 px-4">Reviewer</th>
+                <th class="py-3 px-4">Docs Uploaded</th>
+                <th class="py-3 px-4">Priority Override</th>
+                <th class="py-3 px-4">Approx. Hours</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Dependencies</th>
+                <th class="py-3 px-4">Next Action</th>
+                <th class="py-3 px-4 text-right">Manage</th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-slate-100">
+              <tr class="hover:bg-slate-50 align-top">
+                <td class="py-4 px-4 font-black">Johnson Family</td>
+                <td class="py-4 px-4">1040</td>
+                <td class="py-4 px-4">Sarah Mitchell</td>
+                <td class="py-4 px-4">Megan Thompson</td>
+                <td class="py-4 px-4">Apr 28</td>
+                <td class="py-4 px-4">
+                  <select class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold text-red-700">
+                    <option>HIGH</option>
+                    <option>URGENT</option>
+                    <option>MEDIUM</option>
+                    <option>LOW</option>
+                  </select>
+                </td>
+                <td class="py-4 px-4"><input value="6.5" class="w-20 px-3 py-2 rounded-lg border border-slate-200 font-bold" /></td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">IN PROGRESS</span></td>
+                <td class="py-4 px-4 max-w-xs">
+                  <p class="font-semibold text-red-700">K-1 from Johnson Holdings</p>
+                  <p class="text-xs text-slate-500 mt-1">Owner: Daniel Ruiz · Due May 7</p>
+                </td>
+                <td class="py-4 px-4 max-w-xs">Manager needs to confirm K-1 timing before final review.</td>
+                <td class="py-4 px-4 text-right"><button class="text-red-600 font-bold">Assign / Edit</button></td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 align-top">
+                <td class="py-4 px-4 font-black">Blue Ridge Dental</td>
+                <td class="py-4 px-4">1120-S</td>
+                <td class="py-4 px-4">Daniel Ruiz</td>
+                <td class="py-4 px-4">Megan Thompson</td>
+                <td class="py-4 px-4">May 5</td>
+                <td class="py-4 px-4">
+                  <select class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold text-yellow-700">
+                    <option>MEDIUM</option>
+                    <option>URGENT</option>
+                    <option>HIGH</option>
+                    <option>LOW</option>
+                  </select>
+                </td>
+                <td class="py-4 px-4"><input value="18" class="w-20 px-3 py-2 rounded-lg border border-slate-200 font-bold" /></td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">WAITING</span></td>
+                <td class="py-4 px-4 max-w-xs">
+                  <p class="font-semibold text-yellow-700">Payroll reports missing</p>
+                  <p class="text-xs text-slate-500 mt-1">Client follow-up sent May 6</p>
+                </td>
+                <td class="py-4 px-4 max-w-xs">Check SafeSend upload queue tomorrow morning.</td>
+                <td class="py-4 px-4 text-right"><button class="text-red-600 font-bold">Assign / Edit</button></td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 align-top">
+                <td class="py-4 px-4 font-black">Martinez Real Estate</td>
+                <td class="py-4 px-4">1065</td>
+                <td class="py-4 px-4">Olivia Walker</td>
+                <td class="py-4 px-4">Brian Cole</td>
+                <td class="py-4 px-4">May 1</td>
+                <td class="py-4 px-4">
+                  <select class="px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs font-bold text-green-700">
+                    <option>LOW</option>
+                    <option>URGENT</option>
+                    <option>HIGH</option>
+                    <option>MEDIUM</option>
+                  </select>
+                </td>
+                <td class="py-4 px-4"><input value="10" class="w-20 px-3 py-2 rounded-lg border border-slate-200 font-bold" /></td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ASSIGNED</span></td>
+                <td class="py-4 px-4 max-w-xs">
+                  <p class="font-semibold text-green-700">None</p>
+                  <p class="text-xs text-slate-500 mt-1">Prior-year depreciation schedule reviewed</p>
+                </td>
+                <td class="py-4 px-4 max-w-xs">Olivia to begin prep after Johnson K-1 review is cleared.</td>
+                <td class="py-4 px-4 text-right"><button class="text-red-600 font-bold">Assign / Edit</button></td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 align-top">
+                <td class="py-4 px-4 font-black">Reed Executive Return</td>
+                <td class="py-4 px-4">1040</td>
+                <td class="py-4 px-4">Daniel Ruiz</td>
+                <td class="py-4 px-4">Sarah Mitchell</td>
+                <td class="py-4 px-4">May 1</td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">URGENT</span></td>
+                <td class="py-4 px-4 font-bold">9</td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">BLOCKED</span></td>
+                <td class="py-4 px-4 max-w-xs">
+                  <p class="font-semibold text-red-700">Stock option detail missing</p>
+                  <p class="text-xs text-slate-500 mt-1">Waiting on client CFO</p>
+                </td>
+                <td class="py-4 px-4 max-w-xs">Manager call needed because due date is approaching.</td>
+                <td class="py-4 px-4 text-right"><button class="text-red-600 font-bold">Assign / Edit</button></td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 align-top">
+                <td class="py-4 px-4 font-black">Westlake Medical Group</td>
+                <td class="py-4 px-4">1120-S</td>
+                <td class="py-4 px-4">Megan Thompson</td>
+                <td class="py-4 px-4">Claire Bennett</td>
+                <td class="py-4 px-4">Apr 30</td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">MEDIUM</span></td>
+                <td class="py-4 px-4 font-bold">8</td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">UNDER REVIEW</span></td>
+                <td class="py-4 px-4 max-w-xs">
+                  <p class="font-semibold text-green-700">None</p>
+                  <p class="text-xs text-slate-500 mt-1">All workpapers attached</p>
+                </td>
+                <td class="py-4 px-4 max-w-xs">Claire to finish review comments by May 10.</td>
+                <td class="py-4 px-4 text-right"><button class="text-red-600 font-bold">Assign / Edit</button></td>
+              </tr>
+
+              <tr class="hover:bg-slate-50 align-top">
+                <td class="py-4 px-4 font-black">Anderson Family</td>
+                <td class="py-4 px-4">1040</td>
+                <td class="py-4 px-4"><span class="text-red-600 font-bold">Unassigned</span></td>
+                <td class="py-4 px-4">—</td>
+                <td class="py-4 px-4">May 2</td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">HIGH</span></td>
+                <td class="py-4 px-4 font-bold">6.5</td>
+                <td class="py-4 px-4"><span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">READY</span></td>
+                <td class="py-4 px-4 max-w-xs">
+                  <p class="font-semibold text-green-700">None</p>
+                  <p class="text-xs text-slate-500 mt-1">Docs fully uploaded</p>
+                </td>
+                <td class="py-4 px-4 max-w-xs">Assign today because it is ready and high priority.</td>
+                <td class="py-4 px-4 text-right"><button class="text-red-600 font-bold">Assign / Edit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Projects View -->
+      <div id="view-projects" class="tab-view hidden p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl font-black">All Client Projects</h2>
+            <p class="text-slate-500 text-sm">Search, track, assign, edit hours, and view project status.</p>
+          </div>
+          <div class="flex gap-3">
+            <input placeholder="Search clients..." class="px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500" />
+            <button class="px-4 py-2 rounded-xl bg-red-600 text-white font-semibold text-sm">New Project</button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+          <table class="w-full text-sm bg-white">
+            <thead class="bg-slate-50 border-b border-slate-200">
+              <tr class="text-left text-slate-500">
+                <th class="py-3 px-4">Client</th>
+                <th class="py-3 px-4">Return Type</th>
+                <th class="py-3 px-4">Assigned To</th>
+                <th class="py-3 px-4">Priority</th>
+                <th class="py-3 px-4">Expected Hours</th>
+                <th class="py-3 px-4">Progress</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-slate-100">
+              <tr class="hover:bg-slate-50">
+                <td class="py-4 px-4 font-bold">Johnson Family</td>
+                <td class="px-4">1040</td>
+                <td class="px-4">Sarah Mitchell</td>
+                <td class="px-4"><span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">HIGH</span></td>
+                <td class="px-4"><input value="6.5" class="w-20 px-3 py-2 rounded-lg border border-slate-200" /></td>
+                <td class="px-4">
+                  <div class="w-32 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-red-600" style="width: 75%;"></div></div>
+                  <span class="text-xs text-slate-500">75%</span>
+                </td>
+                <td class="px-4"><span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">IN PROGRESS</span></td>
+                <td class="px-4 text-right"><button class="text-red-600 font-bold">Edit</button></td>
+              </tr>
+
+              <tr class="hover:bg-slate-50">
+                <td class="py-4 px-4 font-bold">Blue Ridge Dental</td>
+                <td class="px-4">1120-S</td>
+                <td class="px-4">Daniel Ruiz</td>
+                <td class="px-4"><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">MEDIUM</span></td>
+                <td class="px-4"><input value="18" class="w-20 px-3 py-2 rounded-lg border border-slate-200" /></td>
+                <td class="px-4">
+                  <div class="w-32 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-red-600" style="width: 40%;"></div></div>
+                  <span class="text-xs text-slate-500">40%</span>
+                </td>
+                <td class="px-4"><span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">WAITING</span></td>
+                <td class="px-4 text-right"><button class="text-red-600 font-bold">Edit</button></td>
+              </tr>
+
+              <tr class="hover:bg-slate-50">
+                <td class="py-4 px-4 font-bold">Martinez Real Estate</td>
+                <td class="px-4">1065</td>
+                <td class="px-4">Olivia Walker</td>
+                <td class="px-4"><span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">LOW</span></td>
+                <td class="px-4"><input value="10" class="w-20 px-3 py-2 rounded-lg border border-slate-200" /></td>
+                <td class="px-4">
+                  <div class="w-32 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-red-600" style="width: 20%;"></div></div>
+                  <span class="text-xs text-slate-500">20%</span>
+                </td>
+                <td class="px-4"><span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">ASSIGNED</span></td>
+                <td class="px-4 text-right"><button class="text-red-600 font-bold">Edit</button></td>
+              </tr>
+
+              <tr class="hover:bg-slate-50">
+                <td class="py-4 px-4 font-bold">Reed Executive Return</td>
+                <td class="px-4">1040</td>
+                <td class="px-4">Daniel Ruiz</td>
+                <td class="px-4"><span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">URGENT</span></td>
+                <td class="px-4"><input value="9" class="w-20 px-3 py-2 rounded-lg border border-slate-200" /></td>
+                <td class="px-4">
+                  <div class="w-32 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-red-600" style="width: 10%;"></div></div>
+                  <span class="text-xs text-slate-500">10%</span>
+                </td>
+                <td class="px-4"><span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">BLOCKED</span></td>
+                <td class="px-4 text-right"><button class="text-red-600 font-bold">Edit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reassign View -->
+      <div id="view-reassign" class="tab-view hidden p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-black">Reassign Work</h2>
+            <p class="text-slate-500 text-sm">Move projects between staff while seeing capacity impact.</p>
+          </div>
+          <button class="px-4 py-2 rounded-xl bg-slate-900 text-white font-semibold text-sm">Save Reassignments</button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <div class="bg-slate-50 rounded-2xl border border-slate-200 p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-black">Sarah Mitchell</h3>
+                <p class="text-xs text-red-600 font-semibold">44.5 / 40 hrs</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold">OVER</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <h4 class="font-bold">Johnson Family</h4>
+                    <p class="text-xs text-slate-500">1040 · 6.5 hrs · High</p>
+                  </div>
+                  <button class="text-xs font-bold text-red-600">Move</button>
+                </div>
+              </div>
+              <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <h4 class="font-bold">Evergreen Manufacturing</h4>
+                    <p class="text-xs text-slate-500">1120 · 20 hrs · Medium</p>
+                  </div>
+                  <button class="text-xs font-bold text-red-600">Move</button>
+                </div>
+              </div>
+              <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <h4 class="font-bold">Harbor Family Office</h4>
+                    <p class="text-xs text-slate-500">1041 · 8 hrs · Low</p>
+                  </div>
+                  <button class="text-xs font-bold text-red-600">Move</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 rounded-2xl border border-slate-200 p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-black">Daniel Ruiz</h3>
+                <p class="text-xs text-green-600 font-semibold">26.8 / 40 hrs</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">OPEN</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <h4 class="font-bold">Taylor Family</h4>
+                <p class="text-xs text-slate-500">1040 · 4 hrs · Low</p>
+              </div>
+              <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <h4 class="font-bold">Reed Executive Return</h4>
+                <p class="text-xs text-slate-500">1040 · 9 hrs · Urgent</p>
+              </div>
+              <div class="border-2 border-dashed border-green-300 rounded-xl p-4 bg-green-50 text-green-700 font-bold text-sm text-center">
+                Can accept 13.2 more hours
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 rounded-2xl border border-slate-200 p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-black">Olivia Walker</h3>
+                <p class="text-xs text-green-600 font-semibold">20.9 / 40 hrs</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">OPEN</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <h4 class="font-bold">Martinez Real Estate</h4>
+                <p class="text-xs text-slate-500">1065 · 10 hrs · Low</p>
+              </div>
+              <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                <h4 class="font-bold">Coastal Rentals</h4>
+                <p class="text-xs text-slate-500">1065 · 16 hrs · Medium</p>
+              </div>
+              <div class="border-2 border-dashed border-green-300 rounded-xl p-4 bg-green-50 text-green-700 font-bold text-sm text-center">
+                Can accept 19.1 more hours
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function showTab(tab) {
+      document.querySelectorAll('.tab-view').forEach(view => {
+        view.classList.add('hidden');
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-red-600', 'text-white');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+      });
+
+      document.getElementById(`view-${tab}`).classList.remove('hidden');
+
+      const activeTab = document.getElementById(`tab-${tab}`);
+      activeTab.classList.add('bg-red-600', 'text-white');
+      activeTab.classList.remove('text-slate-600', 'hover:bg-slate-100');
+    }
+  </script>
+
+</body>
+</html>

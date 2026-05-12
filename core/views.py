@@ -106,3 +106,6 @@ def owner_signup(request, token):
 
 def staff(request):
     return render(request, "core/staff.html")
+
+def manager(request):
+    return render(request, "core/manager.html")
