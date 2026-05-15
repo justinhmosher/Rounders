@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Client Project | Rounders</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+
+  {{ return_types_json|json_script:"return-types-data" }}
+
+  <div class="max-w-6xl mx-auto px-6 py-10">
+
+    <div class="mb-8">
+      <div class="inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 border border-red-100">
+        Manager Entry
+      </div>
+
+      <h1 class="mt-4 text-4xl font-black tracking-tight text-slate-950">
+        Create Client Project
+      </h1>
+
+      <p class="text-slate-500 mt-2 text-lg">
+        Enter the client, choose the right return type, and create a schedulable project.
+      </p>
+    </div>
+
+    {% if messages %}
+      <div class="mb-6 space-y-3">
+        {% for message in messages %}
+          <div class="rounded-2xl border px-5 py-4 text-sm font-medium
+            {% if message.tags == 'success' %}
+              bg-green-50 border-green-200 text-green-800
+            {% else %}
+              bg-red-50 border-red-200 text-red-800
+            {% endif %}
+          ">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="POST" class="space-y-8">
+      {% csrf_token %}
+
+      <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
+
+        <div class="border-b border-slate-100 bg-slate-50 px-8 py-5">
+          <h2 class="text-xl font-bold text-slate-950">1. Client Information</h2>
+          <p class="text-sm text-slate-500 mt-1">
+            Basic information about the client this project belongs to.
+          </p>
+        </div>
+
+        <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">
+              Client Name <span class="text-red-600">*</span>
+            </label>
+            <input
+              name="client_name"
+              required
+              class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 text-slate-900 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              placeholder="Example: Anderson Family Trust"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">
+              Client Type <span class="text-red-600">*</span>
+            </label>
+            <select
+              id="clientType"
+              name="client_type"
+              required
+              class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 text-slate-900 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+            >
+              {% for value, label in client_type_choices %}
+                <option value="{{ value }}">{{ label }}</option>
+              {% endfor %}
+            </select>
+
+            <p id="clientTypeHelp" class="mt-2 text-xs text-slate-500">
+              Return types below will change based on this selection.
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">
+              Primary Contact
+            </label>
+            <input
+              name="primary_contact_name"
+              class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              placeholder="Optional"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              placeholder="Optional"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">
+              Phone
+            </label>
+            <input
+              name="phone"
+              class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              placeholder="Optional"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Year-End Month
+              </label>
+              <input
+                type="number"
+                min="1"
+                max="12"
+                name="fiscal_year_end_month"
+                value="12"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Year-End Day
+              </label>
+              <input
+                type="number"
+                min="1"
+                max="31"
+                name="fiscal_year_end_day"
+                value="31"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              />
+            </div>
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block text-sm font-semibold text-slate-700 mb-2">
+              Client Notes
+            </label>
+            <textarea
+              name="client_notes"
+              rows="3"
+              class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              placeholder="Optional general notes about the client"
+            ></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
+
+        <div class="border-b border-slate-100 bg-slate-50 px-8 py-5">
+          <h2 class="text-xl font-bold text-slate-950">2. Return Project</h2>
+          <p class="text-sm text-slate-500 mt-1">
+            This is the actual work item that will eventually be placed on the schedule.
+          </p>
+        </div>
+
+        <div class="p-8 space-y-8">
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Return Type <span class="text-red-600">*</span>
+              </label>
+
+              <select
+                id="returnType"
+                name="return_type"
+                required
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 text-slate-900 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              >
+                <option value="">Select client type first</option>
+              </select>
+
+              <p id="returnTypeHelp" class="mt-2 text-xs text-slate-500">
+                Select a client type to load matching federal return options.
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Tax Year <span class="text-red-600">*</span>
+              </label>
+              <input
+                type="number"
+                name="tax_year"
+                value="2025"
+                required
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              />
+            </div>
+
+          </div>
+
+          <div id="returnSummary" class="hidden rounded-2xl border border-red-100 bg-red-50 p-5">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wide text-red-700">
+                  Selected Return
+                </p>
+                <h3 id="selectedReturnTitle" class="mt-1 text-lg font-black text-slate-950"></h3>
+                <p id="selectedReturnDescription" class="mt-1 text-sm text-slate-600"></p>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <span id="selectedReturnCategory" class="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-700 border border-red-100"></span>
+                <span id="selectedReturnFrequency" class="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-700 border border-red-100"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Period Start Date
+              </label>
+              <input
+                type="date"
+                name="period_start_date"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              />
+              <p class="mt-2 text-xs text-slate-500">
+                Optional. Useful for quarterly, monthly, or event-based work.
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Period End Date
+              </label>
+              <input
+                type="date"
+                name="period_end_date"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              />
+              <p class="mt-2 text-xs text-slate-500">
+                Leave blank for standard annual calendar-year work.
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Document Status
+              </label>
+              <select
+                name="document_status"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              >
+                {% for value, label in document_status_choices %}
+                  <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Docs Received Date
+              </label>
+              <input
+                type="date"
+                name="docs_received_date"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              />
+              <p class="mt-2 text-xs text-slate-500">
+                Used later for FIFO scheduling.
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Work Status
+              </label>
+              <select
+                name="work_status"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              >
+                {% for value, label in work_status_choices %}
+                  <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Estimated Hours
+              </label>
+              <input
+                id="estimatedHours"
+                type="number"
+                step="0.25"
+                name="estimated_hours"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+                placeholder="Example: 8.5"
+              />
+              <p class="mt-2 text-xs text-slate-500">
+                This drives scheduling capacity later.
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Complexity
+              </label>
+              <select
+                id="complexity"
+                name="complexity"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              >
+                {% for value, label in complexity_choices %}
+                  <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Manager Priority
+              </label>
+              <select
+                name="manager_priority_override"
+                class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              >
+                {% for value, label in priority_choices %}
+                  <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">
+              <input
+                type="checkbox"
+                name="extension_filed"
+                class="h-5 w-5 rounded border-slate-300 text-red-600 focus:ring-red-500"
+              />
+              <div>
+                <label class="text-sm font-bold text-slate-800">
+                  Extension Filed
+                </label>
+                <p class="text-xs text-slate-500">
+                  Uses extended deadline if the model calculates one.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">
+              Project Notes
+            </label>
+            <textarea
+              name="internal_notes"
+              rows="4"
+              class="w-full rounded-2xl border border-slate-300 px-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-red-100 focus:border-red-500"
+              placeholder="Notes for staff about this specific return project"
+            ></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sticky bottom-0 bg-slate-50/90 backdrop-blur border-t border-slate-200 py-5">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+          <p class="text-sm text-slate-500">
+            The project will be saved and used later for scheduling.
+          </p>
+
+          <button
+            type="submit"
+            class="rounded-2xl bg-red-600 px-8 py-4 text-white font-black shadow-sm hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
+          >
+            Create Client Project
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <script>
+    const returnTypes = JSON.parse(
+      document.getElementById("return-types-data").textContent
+    );
+
+    const categoryLabels = {
+      individual: "Individual",
+      business: "Business Income",
+      partnership: "Partnership",
+      corporation: "Corporation",
+      s_corporation: "S Corporation",
+      trust_estate: "Trust / Estate",
+      exempt_org: "Exempt Organization / Nonprofit",
+      estate_gift: "Estate / Gift / GST",
+      employment: "Employment / Payroll",
+      information: "Information Return",
+      excise: "Excise Tax",
+      international: "International / Foreign Reporting",
+      retirement: "Retirement / Benefit Plan",
+      estimated_tax: "Estimated Tax",
+      withholding: "Withholding",
+      other: "Other Federal Filing"
+    };
+
+    const frequencyLabels = {
+      annual: "Annual",
+      quarterly: "Quarterly",
+      monthly: "Monthly",
+      semiweekly: "Semiweekly",
+      periodic: "Periodic",
+      event_based: "Event Based",
+      fiscal_year_based: "Fiscal Year Based",
+      one_time: "One Time"
+    };
+
+    const clientTypeToCategories = {
+      individual: [
+        "individual",
+        "estimated_tax",
+        "estate_gift",
+        "information",
+        "international"
+      ],
+
+      business: [
+        "business",
+        "partnership",
+        "corporation",
+        "s_corporation",
+        "employment",
+        "information",
+        "excise",
+        "estimated_tax",
+        "withholding",
+        "international",
+        "retirement",
+        "other"
+      ],
+
+      trust_estate: [
+        "trust_estate",
+        "estate_gift",
+        "estimated_tax",
+        "information",
+        "international"
+      ],
+
+      nonprofit: [
+        "exempt_org",
+        "information",
+        "employment",
+        "excise",
+        "other"
+      ],
+
+      other: [
+        "individual",
+        "business",
+        "partnership",
+        "corporation",
+        "s_corporation",
+        "trust_estate",
+        "exempt_org",
+        "estate_gift",
+        "employment",
+        "information",
+        "excise",
+        "international",
+        "retirement",
+        "estimated_tax",
+        "withholding",
+        "other"
+      ]
+    };
+
+    const clientTypeSelect = document.getElementById("clientType");
+    const returnTypeSelect = document.getElementById("returnType");
+    const returnTypeHelp = document.getElementById("returnTypeHelp");
+
+    const returnSummary = document.getElementById("returnSummary");
+    const selectedReturnTitle = document.getElementById("selectedReturnTitle");
+    const selectedReturnDescription = document.getElementById("selectedReturnDescription");
+    const selectedReturnCategory = document.getElementById("selectedReturnCategory");
+    const selectedReturnFrequency = document.getElementById("selectedReturnFrequency");
+
+    const estimatedHoursInput = document.getElementById("estimatedHours");
+    const complexitySelect = document.getElementById("complexity");
+
+    function sortReturnTypes(a, b) {
+      const categoryCompare = a.category.localeCompare(b.category);
+
+      if (categoryCompare !== 0) {
+        return categoryCompare;
+      }
+
+      return a.form_number.localeCompare(b.form_number);
+    }
+
+    function getFilteredReturnTypes() {
+      const selectedClientType = clientTypeSelect.value;
+      const allowedCategories = clientTypeToCategories[selectedClientType] || clientTypeToCategories.other;
+
+      return returnTypes
+        .filter(item => allowedCategories.includes(item.category))
+        .sort(sortReturnTypes);
+    }
+
+    function populateReturnTypes() {
+      const filteredReturnTypes = getFilteredReturnTypes();
+
+      returnTypeSelect.innerHTML = "";
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = filteredReturnTypes.length
+        ? "Select return type"
+        : "No return types found";
+      returnTypeSelect.appendChild(placeholder);
+
+      let currentGroup = null;
+
+      filteredReturnTypes.forEach(item => {
+        const groupLabel = categoryLabels[item.category] || item.category;
+
+        if (!currentGroup || currentGroup.label !== groupLabel) {
+          currentGroup = document.createElement("optgroup");
+          currentGroup.label = groupLabel;
+          returnTypeSelect.appendChild(currentGroup);
+        }
+
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = `${item.form_number} - ${item.name}`;
+        option.dataset.category = item.category;
+        option.dataset.frequency = item.frequency;
+        option.dataset.producedWhen = item.produced_when;
+        option.dataset.defaultEstimatedHours = item.default_estimated_hours;
+        option.dataset.defaultComplexity = item.default_complexity;
+
+        currentGroup.appendChild(option);
+      });
+
+      returnTypeHelp.textContent = filteredReturnTypes.length
+        ? `${filteredReturnTypes.length} return type options available for this client type.`
+        : "No active return types were found. Make sure the federal return catalog has been seeded.";
+
+      hideReturnSummary();
+    }
+
+    function hideReturnSummary() {
+      returnSummary.classList.add("hidden");
+      selectedReturnTitle.textContent = "";
+      selectedReturnDescription.textContent = "";
+      selectedReturnCategory.textContent = "";
+      selectedReturnFrequency.textContent = "";
+    }
+
+    function showReturnSummary() {
+      const selectedOption = returnTypeSelect.options[returnTypeSelect.selectedIndex];
+
+      if (!selectedOption || !selectedOption.value) {
+        hideReturnSummary();
+        return;
+      }
+
+      const selectedReturn = returnTypes.find(item => String(item.id) === String(selectedOption.value));
+
+      if (!selectedReturn) {
+        hideReturnSummary();
+        return;
+      }
+
+      selectedReturnTitle.textContent = `${selectedReturn.form_number} - ${selectedReturn.name}`;
+      selectedReturnDescription.textContent = selectedReturn.produced_when || "No production timing description available.";
+      selectedReturnCategory.textContent = categoryLabels[selectedReturn.category] || selectedReturn.category;
+      selectedReturnFrequency.textContent = frequencyLabels[selectedReturn.frequency] || selectedReturn.frequency;
+
+      if (selectedReturn.default_estimated_hours && !estimatedHoursInput.value) {
+        estimatedHoursInput.value = selectedReturn.default_estimated_hours;
+      }
+
+      if (selectedReturn.default_complexity) {
+        complexitySelect.value = selectedReturn.default_complexity;
+      }
+
+      returnSummary.classList.remove("hidden");
+    }
+
+    clientTypeSelect.addEventListener("change", function () {
+      populateReturnTypes();
+    });
+
+    returnTypeSelect.addEventListener("change", function () {
+      showReturnSummary();
+    });
+
+    populateReturnTypes();
+  </script>
+
+</body>
+</html>

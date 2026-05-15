@@ -12,5 +12,6 @@ urlpatterns = [
 	path('signin/',views.signin,name="signin"),
 	path('accept-invite/<str:token>/',views.owner_signup,name="owner_signup"),
 	path('staff/',views.staff,name="staff"),
-	path('manager/',views.manager,name="manager")
+	path('manager/',views.manager,name="manager"),
+	path("manager/create-client-project/",views.create_client_project,name="create_client_project"),
 ]
