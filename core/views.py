@@ -12,12 +12,134 @@ from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+from django.contrib.auth import authenticate, login, logout
 
 def home(request):
     return render(request, "core/home.html")
 
+def owner_dashboard(request):
+    return render(request, "core/owner_dashboard.html")
+def manager_dashboard(request):
+    return render(request, "core/manager_dashboard.html")
+def staff_dashboard(request):
+    return render(request, "core/staff_dashboard.html")
+
+def get_dashboard_url_for_user(user):
+    """
+    Sends users to the correct dashboard based on their Profile role.
+    Edit these paths if your actual URLs are different.
+    """
+
+    profile = getattr(user, "profile", None)
+
+    if profile is None:
+        return None
+
+    role_dashboard_urls = {
+        "owner": "/owner/dashboard/",
+        "manager": "/manager/dashboard/",
+        "staff": "/staff/dashboard/",
+    }
+
+    return role_dashboard_urls.get(profile.role)
+
+
+@require_http_methods(["GET", "POST"])
 def signin(request):
+    if request.user.is_authenticated:
+        dashboard_url = get_dashboard_url_for_user(request.user)
+
+        if dashboard_url:
+            return redirect(dashboard_url)
+
+        return redirect("/")
+
+    if request.method == "POST":
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "")
+        remember_me = request.POST.get("remember_me")
+
+        is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
+
+        if not username or not password:
+            message = "Please enter your username and password."
+
+            if is_ajax:
+                return JsonResponse({
+                    "success": False,
+                    "message": message
+                }, status=400)
+
+            return render(request, "core/signin.html", {
+                "error": message
+            })
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is None:
+            message = "Invalid username or password."
+
+            if is_ajax:
+                return JsonResponse({
+                    "success": False,
+                    "message": message
+                }, status=400)
+
+            return render(request, "core/signin.html", {
+                "error": message
+            })
+
+        if not user.is_active:
+            message = "This account is inactive."
+
+            if is_ajax:
+                return JsonResponse({
+                    "success": False,
+                    "message": message
+                }, status=403)
+
+            return render(request, "core/signin.html", {
+                "error": message
+            })
+
+        dashboard_url = get_dashboard_url_for_user(user)
+
+        if dashboard_url is None:
+            message = "Your account does not have a company profile. Please contact your firm owner."
+
+            if is_ajax:
+                return JsonResponse({
+                    "success": False,
+                    "message": message
+                }, status=403)
+
+            return render(request, "core/signin.html", {
+                "error": message
+            })
+
+        login(request, user)
+
+        if remember_me:
+            request.session.set_expiry(60 * 60 * 24 * 30)  # 30 days
+        else:
+            request.session.set_expiry(0)  # Browser-session only
+
+        if is_ajax:
+            return JsonResponse({
+                "success": True,
+                "message": "Signed in successfully.",
+                "redirect_url": dashboard_url
+            })
+
+        return redirect(dashboard_url)
+
     return render(request, "core/signin.html")
+
+
+def signout(request):
+    logout(request)
+    return redirect("/signin")
 
 def is_strong_password(password):
     return (
@@ -107,6 +229,174 @@ def owner_signup(request, token):
 
     return render(request, "core/signup.html", {
         "invitation": invitation
+    })
+
+import json
+from datetime import timedelta
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.utils import timezone
+from django.views.decorators.http import require_http_methods
+
+from .models import Invitation
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def owner_invite_users(request):
+    profile = getattr(request.user, "profile", None)
+
+    if not profile:
+        if request.method == "POST":
+            return JsonResponse({
+                "success": False,
+                "message": "Your account is missing a company profile."
+            }, status=403)
+
+        return render(request, "core/invite_invalid.html", {
+            "message": "Your account is missing a company profile."
+        })
+
+    if profile.role != "owner":
+        if request.method == "POST":
+            return JsonResponse({
+                "success": False,
+                "message": "Only owners can invite team members."
+            }, status=403)
+
+        return render(request, "core/invite_invalid.html", {
+            "message": "Only owners can invite team members."
+        })
+
+    company = profile.company
+
+    if request.method == "GET":
+        return render(request, "core/owner_dashboard.html", {
+            "company": company
+        })
+
+    try:
+        data = json.loads(request.body.decode("utf-8"))
+    except json.JSONDecodeError:
+        return JsonResponse({
+            "success": False,
+            "message": "Invalid request body."
+        }, status=400)
+
+    invites = data.get("invites", [])
+
+    if not isinstance(invites, list) or len(invites) == 0:
+        return JsonResponse({
+            "success": False,
+            "message": "Please add at least one invite."
+        }, status=400)
+
+    if len(invites) > 250:
+        return JsonResponse({
+            "success": False,
+            "message": "You can send up to 250 invites at a time."
+        }, status=400)
+
+    allowed_roles = {"manager", "staff"}
+
+    created = []
+    skipped = []
+    errors = []
+    seen_emails = set()
+
+    for index, invite in enumerate(invites, start=1):
+        email = str(invite.get("email", "")).strip().lower()
+        role = str(invite.get("role", "staff")).strip().lower()
+
+        if not email:
+            errors.append({
+                "row": index,
+                "email": email,
+                "reason": "Missing email."
+            })
+            continue
+
+        try:
+            validate_email(email)
+        except ValidationError:
+            errors.append({
+                "row": index,
+                "email": email,
+                "reason": "Invalid email address."
+            })
+            continue
+
+        if email in seen_emails:
+            skipped.append({
+                "email": email,
+                "reason": "Duplicate email in this batch."
+            })
+            continue
+
+        seen_emails.add(email)
+
+        if role not in allowed_roles:
+            errors.append({
+                "row": index,
+                "email": email,
+                "reason": "Role must be staff or manager."
+            })
+            continue
+
+        if User.objects.filter(email__iexact=email).exists():
+            skipped.append({
+                "email": email,
+                "reason": "An account with this email already exists."
+            })
+            continue
+
+        existing_invite = Invitation.objects.filter(
+            company=company,
+            email__iexact=email,
+            accepted=False
+        ).order_by("-created_at").first()
+
+        if existing_invite and not existing_invite.is_expired():
+            skipped.append({
+                "email": email,
+                "reason": "An active invitation already exists."
+            })
+            continue
+
+        Invitation.objects.create(
+            email=email,
+            company=company,
+            role=role,
+            expires_at=timezone.now() + timedelta(days=7)
+        )
+
+        created.append({
+            "email": email,
+            "role": role
+        })
+
+    if len(created) == 0 and errors:
+        return JsonResponse({
+            "success": False,
+            "message": "No invites were sent. Please fix the errors and try again.",
+            "created_count": 0,
+            "created": created,
+            "skipped": skipped,
+            "errors": errors
+        }, status=400)
+
+    return JsonResponse({
+        "success": True,
+        "message": "Invites processed successfully.",
+        "created_count": len(created),
+        "created": created,
+        "skipped": skipped,
+        "errors": errors
     })
 
 def staff(request):
