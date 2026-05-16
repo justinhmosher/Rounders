@@ -82,7 +82,7 @@
             </button>
           </div>
 
-          <form id="inviteForm" method="POST">
+          <form id="inviteForm" method="POST" action="{% url 'core:owner_invite_users' %}">
             {% csrf_token %}
 
             <div id="inviteRows" class="space-y-3"></div>
@@ -414,65 +414,78 @@ sarah@example.com,manager</pre>
       reader.readAsText(file);
     });
 
-    inviteForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
+inviteForm.addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-      const invites = collectInvites();
+  const invites = collectInvites();
 
-      if (invites.length === 0) {
-        showToast("error", "No invites", "Add at least one email before sending invites.");
-        return;
-      }
+  if (invites.length === 0) {
+    showToast("error", "No invites", "Add at least one email before sending invites.");
+    return;
+  }
 
-      const invalidInvite = invites.find(invite => !isValidEmail(invite.email));
+  const invalidInvite = invites.find(invite => !isValidEmail(invite.email));
 
-      if (invalidInvite) {
-        showToast("error", "Invalid email", `${invalidInvite.email} is not a valid email address.`);
-        return;
-      }
+  if (invalidInvite) {
+    showToast("error", "Invalid email", `${invalidInvite.email} is not a valid email address.`);
+    return;
+  }
 
-      sendInvitesBtn.disabled = true;
-      sendInvitesBtn.textContent = "Sending invites...";
+  sendInvitesBtn.disabled = true;
+  sendInvitesBtn.textContent = "Sending invites...";
 
-      try {
-        const response = await fetch(window.location.href, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": getCSRFToken(),
-            "X-Requested-With": "XMLHttpRequest"
-          },
-          body: JSON.stringify({ invites })
-        });
+  try {
+    const response = await fetch(inviteForm.action, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCSRFToken(),
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      body: JSON.stringify({ invites })
+    });
 
-        const data = await response.json();
+    const text = await response.text();
 
-        if (!response.ok || !data.success) {
-          showToast("error", "Invites not sent", data.message || "Something went wrong.");
-          sendInvitesBtn.disabled = false;
-          sendInvitesBtn.textContent = "Send Invites";
-          return;
-        }
+    let data;
 
-        let message = `${data.created_count} invite${data.created_count === 1 ? "" : "s"} sent.`;
-
-        if (data.skipped && data.skipped.length > 0) {
-          message += ` ${data.skipped.length} skipped.`;
-        }
-
-        showToast("success", "Invites sent", message);
-
-        inviteRows.innerHTML = "";
-        createInviteRow();
-        updatePreview();
-
-      } catch (error) {
-        showToast("error", "Network error", "Please try again.");
-      }
-
+    try {
+      data = JSON.parse(text);
+    } catch (error) {
+      console.error("Server did not return JSON:", text);
+      showToast("error", "Server error", "Django did not return JSON. Check your terminal.");
       sendInvitesBtn.disabled = false;
       sendInvitesBtn.textContent = "Send Invites";
-    });
+      return;
+    }
+
+    if (!response.ok || !data.success) {
+      showToast("error", "Invites not sent", data.message || "Something went wrong.");
+      sendInvitesBtn.disabled = false;
+      sendInvitesBtn.textContent = "Send Invites";
+      return;
+    }
+
+    let message = `${data.created_count} invite${data.created_count === 1 ? "" : "s"} sent.`;
+
+    if (data.skipped && data.skipped.length > 0) {
+      message += ` ${data.skipped.length} skipped.`;
+    }
+
+    showToast("success", "Invites sent", message);
+
+    inviteRows.innerHTML = "";
+    createInviteRow();
+    updatePreview();
+
+  } catch (error) {
+    console.error("Fetch failed:", error);
+    showToast("error", "Network error", "The request failed before reaching Django.");
+  }
+
+  sendInvitesBtn.disabled = false;
+  sendInvitesBtn.textContent = "Send Invites";
+});
 
     createInviteRow();
   </script>
