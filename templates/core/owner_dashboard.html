@@ -3,491 +3,349 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Invite Team | Rounders</title>
+
+  <title>Owner Dashboard | Rounders</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-red-50 via-white to-white text-slate-900">
+<body class="min-h-screen bg-slate-50 text-slate-900">
 
-  <!-- Toast -->
-  <div id="toast"
-       class="fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden max-w-md rounded-2xl border px-5 py-4 shadow-xl bg-white">
-    <div class="flex items-start gap-3">
-      <div id="toastIcon"
-           class="mt-0.5 h-6 w-6 rounded-full flex items-center justify-center text-sm font-black">
-      </div>
-      <div>
-        <p id="toastTitle" class="font-black text-slate-900"></p>
-        <p id="toastMessage" class="mt-1 text-sm text-slate-600"></p>
-      </div>
-    </div>
-  </div>
+  <div class="min-h-screen">
 
-  <div class="min-h-screen px-6 py-8">
+    <!-- Header -->
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-7xl px-6 py-5">
 
-    <!-- Top Bar -->
-    <div class="max-w-7xl mx-auto flex items-center justify-between mb-8">
-      <a href="/dashboard/" class="inline-flex items-center gap-3">
-        <div class="h-12 w-12 rounded-2xl bg-red-600 text-white flex items-center justify-center font-black text-xl shadow-lg">
-          R
-        </div>
-        <div>
-          <div class="text-2xl font-black tracking-tight">Rounders</div>
-          <div class="text-sm text-slate-500 font-medium">Invite your firm</div>
-        </div>
-      </a>
+        <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
 
-      <a href="/dashboard/"
-         class="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-700 shadow-sm hover:bg-slate-50">
-        Back to Dashboard
-      </a>
-    </div>
+          <!-- Left side -->
+          <div class="flex items-center gap-4">
+            <a href="/" class="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-600 text-xl font-black text-white shadow-sm">
+              R
+            </a>
 
-    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-      <!-- Left Column -->
-      <section class="lg:col-span-2 space-y-6">
-
-        <!-- Header Card -->
-        <div class="bg-white border border-red-100 rounded-[2rem] shadow-xl shadow-red-100/60 p-8">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <p class="text-sm font-black text-red-600 uppercase tracking-wide">Team Setup</p>
-              <h1 class="mt-2 text-4xl font-black tracking-tight">Invite staff and managers</h1>
-              <p class="mt-3 text-slate-500 max-w-2xl">
-                Send account creation links to your firm. Each person will create their own username and password after accepting the invite.
+              <h1 class="text-2xl font-black tracking-tight text-slate-900">
+                Owner Dashboard
+              </h1>
+              <p class="mt-1 text-sm font-medium text-slate-500">
+                View every client, return, and assigned staff member.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right side buttons -->
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+
+            <a
+              href="{% url 'core:owner_invite_users' %}"
+              class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-50"
+            >
+              Manage Staff
+            </a>
+
+            <a
+              href="{% url 'core:create_client_project' %}"
+              class="inline-flex items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-red-700"
+            >
+              Add Client
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+    </header>
+
+
+    <!-- Main -->
+    <main class="mx-auto max-w-7xl px-6 py-8">
+
+      <!-- Small stats -->
+      <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p class="text-xs font-black uppercase tracking-wide text-slate-500">
+            Total Clients
+          </p>
+          <p class="mt-2 text-3xl font-black text-slate-900">
+            {{ client_count }}
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p class="text-xs font-black uppercase tracking-wide text-slate-500">
+            Total Returns / Projects
+          </p>
+          <p class="mt-2 text-3xl font-black text-slate-900">
+            {{ project_count }}
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- Client sheet -->
+      <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+
+        <!-- Table header -->
+        <div class="border-b border-slate-200 px-6 py-5">
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+            <div>
+              <h2 class="text-xl font-black tracking-tight text-slate-900">
+                Master Client Sheet
+              </h2>
+              <p class="mt-1 text-sm font-medium text-slate-500">
+                A simple list of clients, returns, and staff assignments.
               </p>
             </div>
 
-            <div class="rounded-3xl bg-red-50 border border-red-100 p-5 min-w-[210px]">
-              <p class="text-sm font-black text-slate-500">Company</p>
-              <p class="mt-1 text-xl font-black text-slate-900">{{ company.practice_name }}</p>
+            <div class="w-full lg:max-w-sm">
+              <label for="clientSearch" class="sr-only">
+                Search
+              </label>
+
+              <input
+                id="clientSearch"
+                type="text"
+                placeholder="Search clients, returns, or staff..."
+                class="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-red-500 focus:ring-4 focus:ring-red-100"
+              />
             </div>
+
           </div>
         </div>
 
-        <!-- Manual Entry Card -->
-        <div class="bg-white border border-slate-200 rounded-[2rem] shadow-xl shadow-slate-100 p-8">
-          <div class="flex items-center justify-between gap-4 mb-6">
-            <div>
-              <h2 class="text-2xl font-black tracking-tight">Manual invites</h2>
-              <p class="mt-1 text-slate-500">Add one person at a time, then send all invites together.</p>
-            </div>
 
-            <button
-              id="addRowBtn"
-              type="button"
-              class="rounded-2xl bg-slate-900 px-5 py-3 text-sm font-black text-white shadow-lg hover:bg-slate-800">
-              + Add Person
-            </button>
-          </div>
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-slate-200">
 
-          <form id="inviteForm" method="POST" action="{% url 'core:owner_invite_users' %}">
-            {% csrf_token %}
+            <thead class="bg-slate-50">
+              <tr>
+                <th class="px-6 py-4 text-left text-xs font-black uppercase tracking-wide text-slate-500">
+                  Client
+                </th>
 
-            <div id="inviteRows" class="space-y-3"></div>
+                <th class="px-6 py-4 text-left text-xs font-black uppercase tracking-wide text-slate-500">
+                  Return
+                </th>
 
-            <div class="mt-8 flex flex-col sm:flex-row gap-3">
-              <button
-                id="sendInvitesBtn"
-                type="submit"
-                class="flex-1 bg-red-600 hover:bg-red-700 text-white rounded-2xl py-4 font-black shadow-xl shadow-red-200 transition hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0">
-                Send Invites
-              </button>
+                <th class="px-6 py-4 text-left text-xs font-black uppercase tracking-wide text-slate-500">
+                  Tax Year
+                </th>
 
-              <button
-                id="clearRowsBtn"
-                type="button"
-                class="rounded-2xl border border-slate-200 bg-white px-6 py-4 font-black text-slate-700 hover:bg-slate-50">
-                Clear
-              </button>
-            </div>
-          </form>
-        </div>
+                <th class="px-6 py-4 text-left text-xs font-black uppercase tracking-wide text-slate-500">
+                  Assigned To
+                </th>
 
-        <!-- Preview Card -->
-        <div class="bg-white border border-slate-200 rounded-[2rem] shadow-xl shadow-slate-100 p-8">
-          <div class="flex items-center justify-between gap-4 mb-5">
-            <div>
-              <h2 class="text-2xl font-black tracking-tight">Invite preview</h2>
-              <p class="mt-1 text-slate-500">Review who will receive an invitation.</p>
-            </div>
+                <th class="px-6 py-4 text-right text-xs font-black uppercase tracking-wide text-slate-500">
+                  Action
+                </th>
+              </tr>
+            </thead>
 
-            <div class="rounded-2xl bg-slate-100 px-4 py-2 text-sm font-black text-slate-700">
-              <span id="inviteCount">0</span> invites
-            </div>
-          </div>
+            <tbody id="clientTableBody" class="divide-y divide-slate-100 bg-white">
 
-          <div class="overflow-hidden rounded-2xl border border-slate-200">
-            <table class="w-full text-left">
-              <thead class="bg-slate-50 border-b border-slate-200">
-                <tr>
-                  <th class="px-5 py-4 text-xs font-black uppercase tracking-wide text-slate-500">Email</th>
-                  <th class="px-5 py-4 text-xs font-black uppercase tracking-wide text-slate-500">Role</th>
-                  <th class="px-5 py-4 text-xs font-black uppercase tracking-wide text-slate-500">Status</th>
+              {% for row in rows %}
+
+                <tr
+                  class="client-row transition hover:bg-slate-50"
+                  data-search="
+                    {{ row.client.name|lower }}
+                    {% if row.project %}
+                      {{ row.project.return_type.form_number|lower }}
+                      {{ row.project.return_type.name|lower }}
+                      {{ row.project.tax_year }}
+                      {% if row.project.assigned_preparer %}
+                        {{ row.project.assigned_preparer.get_full_name|default:row.project.assigned_preparer.username|lower }}
+                      {% endif %}
+                    {% endif %}
+                  "
+                >
+
+                  <!-- Client -->
+                  <td class="whitespace-nowrap px-6 py-5">
+                    <div class="flex items-center gap-3">
+
+                      <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-red-50 text-sm font-black text-red-700">
+                        {{ row.client.name|slice:":1" }}
+                      </div>
+
+                      <div>
+                        <p class="text-sm font-black text-slate-900">
+                          {{ row.client.name }}
+                        </p>
+
+                        <p class="text-xs font-semibold text-slate-500">
+                          {{ row.client.get_client_type_display }}
+                        </p>
+                      </div>
+
+                    </div>
+                  </td>
+
+
+                  <!-- Return -->
+                  <td class="whitespace-nowrap px-6 py-5">
+                    {% if row.project %}
+
+                      <div>
+                        <p class="text-sm font-black text-slate-900">
+                          {{ row.project.return_type.form_number }}
+                        </p>
+
+                        <p class="max-w-xs truncate text-xs font-semibold text-slate-500">
+                          {{ row.project.return_type.name }}
+                        </p>
+                      </div>
+
+                    {% else %}
+
+                      <span class="inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-black text-amber-700">
+                        No return added yet
+                      </span>
+
+                    {% endif %}
+                  </td>
+
+
+                  <!-- Tax year -->
+                  <td class="whitespace-nowrap px-6 py-5">
+                    {% if row.project %}
+                      <span class="text-sm font-bold text-slate-700">
+                        {{ row.project.tax_year }}
+                      </span>
+                    {% else %}
+                      <span class="text-sm font-semibold text-slate-400">
+                        —
+                      </span>
+                    {% endif %}
+                  </td>
+
+
+                  <!-- Assigned to -->
+                  <td class="whitespace-nowrap px-6 py-5">
+                    {% if row.project and row.project.assigned_preparer %}
+
+                      <div>
+                        <p class="text-sm font-black text-slate-900">
+                          {{ row.project.assigned_preparer.get_full_name|default:row.project.assigned_preparer.username }}
+                        </p>
+
+                        <p class="text-xs font-semibold text-slate-500">
+                          Preparer
+                        </p>
+                      </div>
+
+                    {% else %}
+
+                      <span class="text-sm font-semibold text-slate-400">
+                        Unassigned
+                      </span>
+
+                    {% endif %}
+                  </td>
+
+
+                  <!-- Action -->
+                  <td class="whitespace-nowrap px-6 py-5 text-right">
+                    <a
+                      href="{% url 'core:create_client_project' %}?client_id={{ row.client.id }}"
+                      class="inline-flex items-center justify-center rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-xs font-black text-red-700 transition hover:bg-red-100"
+                    >
+                      Add Project
+                    </a>
+                  </td>
+
                 </tr>
-              </thead>
-              <tbody id="previewBody" class="divide-y divide-slate-100">
+
+              {% empty %}
+
                 <tr>
-                  <td colspan="3" class="px-5 py-8 text-center text-slate-400 font-medium">
-                    No invites added yet.
+                  <td colspan="5" class="px-6 py-16 text-center">
+
+                    <div class="mx-auto max-w-md">
+                      <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 0 1 2-2h8m-8 0V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8" />
+                        </svg>
+                      </div>
+
+                      <h3 class="text-lg font-black text-slate-900">
+                        No clients yet
+                      </h3>
+
+                      <p class="mt-2 text-sm font-medium text-slate-500">
+                        Add your first client to start building your master client sheet.
+                      </p>
+
+                      <a
+                        href="{% url 'core:create_client_project' %}"
+                        class="mt-5 inline-flex items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-red-700"
+                      >
+                        Add Client
+                      </a>
+                    </div>
+
                   </td>
                 </tr>
-              </tbody>
-            </table>
-          </div>
+
+              {% endfor %}
+
+            </tbody>
+
+          </table>
+        </div>
+
+
+        <!-- No search results -->
+        <div id="noResults" class="hidden border-t border-slate-200 px-6 py-12 text-center">
+          <h3 class="text-lg font-black text-slate-900">
+            No matching clients found
+          </h3>
+
+          <p class="mt-2 text-sm font-medium text-slate-500">
+            Try searching by client name, return type, tax year, or staff member.
+          </p>
         </div>
 
       </section>
 
-      <!-- Right Column -->
-      <aside class="space-y-6">
-
-        <!-- CSV Upload -->
-        <div class="bg-white border border-slate-200 rounded-[2rem] shadow-xl shadow-slate-100 p-6">
-          <div class="h-12 w-12 rounded-2xl bg-red-100 text-red-700 flex items-center justify-center font-black mb-5">
-            CSV
-          </div>
-
-          <h2 class="text-xl font-black tracking-tight">Bulk import</h2>
-          <p class="mt-2 text-sm text-slate-500 leading-6">
-            Upload a CSV exported from Excel or Google Sheets. Use columns:
-            <span class="font-black text-slate-700">email</span> and
-            <span class="font-black text-slate-700">role</span>.
-          </p>
-
-          <label class="mt-5 block">
-            <span class="sr-only">Upload CSV</span>
-            <input
-              id="csvInput"
-              type="file"
-              accept=".csv"
-              class="block w-full text-sm text-slate-500 file:mr-4 file:rounded-2xl file:border-0 file:bg-red-600 file:px-4 file:py-3 file:text-sm file:font-black file:text-white hover:file:bg-red-700"
-            />
-          </label>
-
-          <div class="mt-5 rounded-2xl bg-slate-50 border border-slate-200 p-4">
-            <p class="text-xs font-black uppercase tracking-wide text-slate-500 mb-2">
-              Example CSV
-            </p>
-            <pre class="text-xs text-slate-600 whitespace-pre-wrap">email,role
-john@example.com,staff
-sarah@example.com,manager</pre>
-          </div>
-        </div>
-
-        <!-- Instructions -->
-        <div class="bg-slate-900 text-white rounded-[2rem] shadow-xl p-6">
-          <h2 class="text-xl font-black tracking-tight">How it works</h2>
-
-          <div class="mt-5 space-y-4">
-            <div class="flex gap-3">
-              <div class="h-7 w-7 rounded-full bg-white text-slate-900 flex items-center justify-center text-xs font-black shrink-0">
-                1
-              </div>
-              <p class="text-sm text-slate-300 leading-6">
-                Owner enters emails and assigns each person a role.
-              </p>
-            </div>
-
-            <div class="flex gap-3">
-              <div class="h-7 w-7 rounded-full bg-white text-slate-900 flex items-center justify-center text-xs font-black shrink-0">
-                2
-              </div>
-              <p class="text-sm text-slate-300 leading-6">
-                Rounders creates invitation records and emails each person a secure link.
-              </p>
-            </div>
-
-            <div class="flex gap-3">
-              <div class="h-7 w-7 rounded-full bg-white text-slate-900 flex items-center justify-center text-xs font-black shrink-0">
-                3
-              </div>
-              <p class="text-sm text-slate-300 leading-6">
-                The invitee clicks the link and creates their own account.
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </aside>
     </main>
+
   </div>
 
+
   <script>
-    const inviteRows = document.getElementById("inviteRows");
-    const addRowBtn = document.getElementById("addRowBtn");
-    const clearRowsBtn = document.getElementById("clearRowsBtn");
-    const inviteForm = document.getElementById("inviteForm");
-    const sendInvitesBtn = document.getElementById("sendInvitesBtn");
-    const previewBody = document.getElementById("previewBody");
-    const inviteCount = document.getElementById("inviteCount");
-    const csvInput = document.getElementById("csvInput");
+    const searchInput = document.getElementById("clientSearch");
+    const rows = document.querySelectorAll(".client-row");
+    const noResults = document.getElementById("noResults");
 
-    const toast = document.getElementById("toast");
-    const toastIcon = document.getElementById("toastIcon");
-    const toastTitle = document.getElementById("toastTitle");
-    const toastMessage = document.getElementById("toastMessage");
+    searchInput.addEventListener("input", function () {
+      const query = this.value.toLowerCase().trim();
+      let visibleRows = 0;
 
-    function getCSRFToken() {
-      const input = document.querySelector("[name=csrfmiddlewaretoken]");
-      return input ? input.value : "";
-    }
+      rows.forEach(function (row) {
+        const searchText = row.dataset.search.toLowerCase();
 
-    function showToast(type, title, message) {
-      toast.classList.remove("hidden");
-
-      toast.className =
-        "fixed top-6 left-1/2 -translate-x-1/2 z-50 max-w-md rounded-2xl border px-5 py-4 shadow-xl bg-white transition";
-
-      if (type === "success") {
-        toast.classList.add("border-green-200");
-        toastIcon.className =
-          "mt-0.5 h-6 w-6 rounded-full flex items-center justify-center text-sm font-black bg-green-100 text-green-700";
-        toastIcon.textContent = "✓";
-      } else {
-        toast.classList.add("border-red-200");
-        toastIcon.className =
-          "mt-0.5 h-6 w-6 rounded-full flex items-center justify-center text-sm font-black bg-red-100 text-red-700";
-        toastIcon.textContent = "!";
-      }
-
-      toastTitle.textContent = title;
-      toastMessage.textContent = message;
-
-      setTimeout(() => {
-        toast.classList.add("hidden");
-      }, 4500);
-    }
-
-    function createInviteRow(email = "", role = "staff") {
-      const row = document.createElement("div");
-      row.className =
-        "invite-row grid grid-cols-1 md:grid-cols-[1fr_180px_44px] gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3";
-
-      row.innerHTML = `
-        <input
-          type="email"
-          value="${email}"
-          placeholder="employee@example.com"
-          class="invite-email w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-red-500 focus:ring-4 focus:ring-red-100"
-        />
-
-        <select
-          class="invite-role w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-red-500 focus:ring-4 focus:ring-red-100"
-        >
-          <option value="staff" ${role === "staff" ? "selected" : ""}>Staff</option>
-          <option value="manager" ${role === "manager" ? "selected" : ""}>Manager</option>
-        </select>
-
-        <button
-          type="button"
-          class="remove-row rounded-xl bg-white border border-slate-200 text-slate-500 font-black hover:bg-red-50 hover:text-red-600"
-          title="Remove row"
-        >
-          ×
-        </button>
-      `;
-
-      inviteRows.appendChild(row);
-
-      row.querySelector(".remove-row").addEventListener("click", () => {
-        row.remove();
-        updatePreview();
+        if (searchText.includes(query)) {
+          row.classList.remove("hidden");
+          visibleRows += 1;
+        } else {
+          row.classList.add("hidden");
+        }
       });
 
-      row.querySelector(".invite-email").addEventListener("input", updatePreview);
-      row.querySelector(".invite-role").addEventListener("change", updatePreview);
-
-      updatePreview();
-    }
-
-    function collectInvites() {
-      const rows = Array.from(document.querySelectorAll(".invite-row"));
-
-      return rows.map(row => {
-        return {
-          email: row.querySelector(".invite-email").value.trim().toLowerCase(),
-          role: row.querySelector(".invite-role").value
-        };
-      }).filter(invite => invite.email.length > 0);
-    }
-
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function updatePreview() {
-      const invites = collectInvites();
-      inviteCount.textContent = invites.length;
-
-      if (invites.length === 0) {
-        previewBody.innerHTML = `
-          <tr>
-            <td colspan="3" class="px-5 py-8 text-center text-slate-400 font-medium">
-              No invites added yet.
-            </td>
-          </tr>
-        `;
-        return;
+      if (visibleRows === 0 && rows.length > 0) {
+        noResults.classList.remove("hidden");
+      } else {
+        noResults.classList.add("hidden");
       }
-
-      previewBody.innerHTML = invites.map(invite => {
-        const valid = isValidEmail(invite.email);
-        const roleLabel = invite.role === "manager" ? "Manager" : "Staff";
-
-        return `
-          <tr class="bg-white">
-            <td class="px-5 py-4 font-semibold text-slate-800">${invite.email}</td>
-            <td class="px-5 py-4">
-              <span class="rounded-full ${invite.role === "manager" ? "bg-red-50 text-red-700" : "bg-slate-100 text-slate-700"} px-3 py-1 text-xs font-black">
-                ${roleLabel}
-              </span>
-            </td>
-            <td class="px-5 py-4">
-              <span class="rounded-full ${valid ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"} px-3 py-1 text-xs font-black">
-                ${valid ? "Ready" : "Invalid email"}
-              </span>
-            </td>
-          </tr>
-        `;
-      }).join("");
-    }
-
-    function parseCSV(text) {
-      const lines = text
-        .split(/\r?\n/)
-        .map(line => line.trim())
-        .filter(Boolean);
-
-      if (lines.length === 0) return [];
-
-      const firstLine = lines[0].toLowerCase();
-      const hasHeader = firstLine.includes("email") && firstLine.includes("role");
-
-      const dataLines = hasHeader ? lines.slice(1) : lines;
-
-      return dataLines.map(line => {
-        const parts = line.split(",").map(part => part.trim());
-        const email = parts[0] || "";
-        const role = (parts[1] || "staff").toLowerCase();
-
-        return {
-          email,
-          role: role === "manager" ? "manager" : "staff"
-        };
-      }).filter(row => row.email);
-    }
-
-    addRowBtn.addEventListener("click", () => {
-      createInviteRow();
     });
-
-    clearRowsBtn.addEventListener("click", () => {
-      inviteRows.innerHTML = "";
-      createInviteRow();
-      updatePreview();
-    });
-
-    csvInput.addEventListener("change", function () {
-      const file = this.files[0];
-
-      if (!file) return;
-
-      const reader = new FileReader();
-
-      reader.onload = function (event) {
-        const rows = parseCSV(event.target.result);
-
-        if (rows.length === 0) {
-          showToast("error", "No rows found", "Please upload a CSV with email and role columns.");
-          return;
-        }
-
-        rows.forEach(row => {
-          createInviteRow(row.email, row.role);
-        });
-
-        showToast("success", "CSV imported", `${rows.length} invite row${rows.length === 1 ? "" : "s"} added.`);
-      };
-
-      reader.readAsText(file);
-    });
-
-inviteForm.addEventListener("submit", async function (e) {
-  e.preventDefault();
-
-  const invites = collectInvites();
-
-  if (invites.length === 0) {
-    showToast("error", "No invites", "Add at least one email before sending invites.");
-    return;
-  }
-
-  const invalidInvite = invites.find(invite => !isValidEmail(invite.email));
-
-  if (invalidInvite) {
-    showToast("error", "Invalid email", `${invalidInvite.email} is not a valid email address.`);
-    return;
-  }
-
-  sendInvitesBtn.disabled = true;
-  sendInvitesBtn.textContent = "Sending invites...";
-
-  try {
-    const response = await fetch(inviteForm.action, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": getCSRFToken(),
-        "X-Requested-With": "XMLHttpRequest"
-      },
-      body: JSON.stringify({ invites })
-    });
-
-    const text = await response.text();
-
-    let data;
-
-    try {
-      data = JSON.parse(text);
-    } catch (error) {
-      console.error("Server did not return JSON:", text);
-      showToast("error", "Server error", "Django did not return JSON. Check your terminal.");
-      sendInvitesBtn.disabled = false;
-      sendInvitesBtn.textContent = "Send Invites";
-      return;
-    }
-
-    if (!response.ok || !data.success) {
-      showToast("error", "Invites not sent", data.message || "Something went wrong.");
-      sendInvitesBtn.disabled = false;
-      sendInvitesBtn.textContent = "Send Invites";
-      return;
-    }
-
-    let message = `${data.created_count} invite${data.created_count === 1 ? "" : "s"} sent.`;
-
-    if (data.skipped && data.skipped.length > 0) {
-      message += ` ${data.skipped.length} skipped.`;
-    }
-
-    showToast("success", "Invites sent", message);
-
-    inviteRows.innerHTML = "";
-    createInviteRow();
-    updatePreview();
-
-  } catch (error) {
-    console.error("Fetch failed:", error);
-    showToast("error", "Network error", "The request failed before reaching Django.");
-  }
-
-  sendInvitesBtn.disabled = false;
-  sendInvitesBtn.textContent = "Send Invites";
-});
-
-    createInviteRow();
   </script>
 
 </body>

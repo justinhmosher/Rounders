@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 import re
-from .models import Invitation, Profile, Client, FederalReturnType, TaxReturnProject
+from .models import Invitation, Profile, Client, FederalReturnType, TaxReturnProject, Company
 from decimal import Decimal, InvalidOperation
 from datetime import datetime
 
@@ -14,14 +14,75 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate, login, logout
+from django.core.exceptions import PermissionDenied
+from django.db.models import Prefetch
 
 def home(request):
     return render(request, "core/home.html")
 
+@login_required
 def owner_dashboard(request):
-    return render(request, "core/owner_dashboard.html")
+    company = request.user.profile.company
+
+    project_queryset = (
+        TaxReturnProject.objects
+        .filter(active=True)
+        .select_related(
+            "return_type",
+            "assigned_preparer",
+            "assigned_reviewer",
+        )
+        .order_by(
+            "client__name",
+            "tax_year",
+            "return_type__form_number",
+        )
+    )
+
+    clients = (
+        Client.objects
+        .filter(company=company, active=True)
+        .prefetch_related(
+            Prefetch(
+                "tax_projects",
+                queryset=project_queryset,
+                to_attr="dashboard_projects"
+            )
+        )
+        .order_by("name")
+    )
+
+    rows = []
+
+    for client in clients:
+        projects = getattr(client, "dashboard_projects", [])
+
+        if projects:
+            for project in projects:
+                rows.append({
+                    "client": client,
+                    "project": project,
+                })
+        else:
+            rows.append({
+                "client": client,
+                "project": None,
+            })
+
+    context = {
+        "rows": rows,
+        "client_count": clients.count(),
+        "project_count": TaxReturnProject.objects.filter(
+            client__company=company,
+            active=True
+        ).count(),
+    }
+
+    return render(request, "core/owner_dashboard.html", context)
+
 def manager_dashboard(request):
     return render(request, "core/manager_dashboard.html")
+
 def staff_dashboard(request):
     return render(request, "core/staff_dashboard.html")
 
@@ -276,7 +337,7 @@ def owner_invite_users(request):
     company = profile.company
 
     if request.method == "GET":
-        return render(request, "core/owner_dashboard.html", {
+        return render(request, "core/owner_invites.html", {
             "company": company
         })
 
