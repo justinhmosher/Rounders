@@ -568,9 +568,26 @@ def get_allowed_categories_for_client_type(client_type):
     return category_map.get(client_type, category_map["other"])
 
 
-# @login_required
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import render, redirect
+
+
+@login_required
 def create_client_project(request):
     seed_federal_catalog_if_empty()
+
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        messages.error(request, "Your user account is not connected to a company profile.")
+        return redirect("/")
+
+    company = profile.company
+
+    if profile.role not in ["owner", "manager"]:
+        raise PermissionDenied("You do not have permission to create client projects.")
 
     return_types = FederalReturnType.objects.filter(active=True).order_by(
         "category",
@@ -668,7 +685,10 @@ def create_client_project(request):
             )
             return redirect("/manager/create-client-project/")
 
+        company = request.user.profile.company
+
         client = Client.objects.create(
+            company=company,
             name=client_name,
             client_type=client_type,
             external_client_id="",
@@ -700,12 +720,14 @@ def create_client_project(request):
 
         messages.success(
             request,
-            f"Created project: {project.client.name} - {project.return_type.form_number} - {project.tax_year}"
+            f"Created project for {company.practice_name}: "
+            f"{project.client.name} - {project.return_type.form_number} - {project.tax_year}"
         )
 
         return redirect("/manager/create-client-project/")
 
     context = {
+        "company": company,
         "return_types": return_types,
         "return_types_json": return_types_json,
         "client_type_choices": Client.CLIENT_TYPE_CHOICES,

@@ -69,6 +69,13 @@ class Profile(models.Model):
 
 
 class Client(models.Model):
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        related_name="clients",
+        null=True,
+        blank=True
+    )
     CLIENT_TYPE_CHOICES = [
         ("individual", "Individual"),
         ("business", "Business"),
